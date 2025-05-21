@@ -9,11 +9,51 @@
             font-family: 'Times New Roman', Times, serif;
             background-color: #f5f5f5;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+        }
+        .input-container {
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #3c544a;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #3c544a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2a3c35;
         }
         .container {
             display: flex;
@@ -24,7 +64,7 @@
             width: 450px;
             height: 650px;
             border-radius: 5px;
-            padding: 20px;
+            padding:, 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
@@ -34,13 +74,13 @@
         }
         .left-card {
             text-align: center;
-            background-image: url('/api/placeholder/450/650');
+            background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=450&q=80');
             background-size: cover;
             background-position: center;
         }
         .right-card {
             text-align: center;
-            background-image: url('/api/placeholder/450/650');
+            background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=450&q=80');
             background-size: cover;
             background-position: center;
         }
@@ -62,6 +102,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .title {
             font-family: 'Brush Script MT', cursive;
@@ -152,6 +194,11 @@
             position: relative;
             z-index: 1;
         }
+        .guest-name {
+            font-weight: bold;
+            color: #c15b5b;
+            font-size: 16px;
+        }
         .date-container {
             display: flex;
             align-items: center;
@@ -218,10 +265,28 @@
             margin: 10px 0;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
+        #invitationCards {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Form để nhập tên khách mời -->
+    <div class="input-container">
+        <h2>Tạo Thiệp Mời Cưới</h2>
+        <div class="input-group">
+            <label for="guestName">Tên Khách Mời:</label>
+            <input type="text" id="guestName" placeholder="Nhập tên khách mời" value="Nguyễn Văn A">
+        </div>
+        <div class="input-group">
+            <label for="guestFamily">Gia Đình/Người Thân Đi Cùng:</label>
+            <input type="text" id="guestFamily" placeholder="Ví dụ: và gia đình" value="và gia đình">
+        </div>
+        <button class="btn" onclick="generateInvitation()">Tạo Thiệp Mời</button>
+    </div>
+    
+    <!-- Container chứa hai thiệp cưới -->
+    <div id="invitationCards" class="container">
         <!-- Left Card - Just Married -->
         <div class="card left-card">
             <div class="card-overlay"></div>
@@ -229,7 +294,7 @@
                 <h1 class="title">Just Married!</h1>
                 
                 <div class="photo-frame left-photo-frame">
-                    <img class="photo" src="/api/placeholder/280/280" alt="Wedding couple photo">
+                    <img class="photo" src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=280&h=280&q=80" alt="Wedding couple photo">
                 </div>
                 
                 <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500" style="opacity: 0.7;">
@@ -264,7 +329,7 @@
             <div class="card-overlay"></div>
             <div class="card-content">
                 <div class="photo-frame right-photo-frame">
-                    <img class="photo" src="/api/placeholder/280/280" alt="Wedding couple beach photo">
+                    <img class="photo" src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=280&h=280&q=80" alt="Wedding couple beach photo">
                 </div>
                 
                 <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500" style="opacity: 0.7;">
@@ -293,32 +358,32 @@
                 <div class="content-box">
                     <p class="save-the-date">Save the date</p>
                     
-                    <h2 class="couple-names">Xuân Thịnh & Diễm Hằng</h2>
+                    <h2 class="couple-names">Phong Lam & Kim Chi</h2>
                     
                     <p class="invite-text">TRÂN TRỌNG KÍNH MỜI</p>
                     
-                    <p class="guest-text">Bạn + NT (GĐ Bạn)</p>
+                    <p class="guest-text"><span id="guestNameDisplay" class="guest-name">Nguyễn Văn A</span> <span id="guestFamilyDisplay">và gia đình</span></p>
                     
                     <p class="guest-text">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
                 </div>
                 
                 <div class="date-container">
                     <div>
-                        <p class="time-text">11 GIỜ 30</p>
+                        <p class="time-text">10 GIỜ 30</p>
                         <p class="time-text">CHỦ NHẬT</p>
                     </div>
                     <div class="date-box">
                         <div class="date-number">30</div>
                     </div>
                     <div>
-                        <p class="month-text">06 - 2024</p>
-                        <p class="month-text">(Nhằm ngày 25 tháng 05 năm Giáp Thìn)</p>
+                        <p class="month-text">01-06-2025</p>
+                        <p class="month-text">(Nhằm ngày 06 tháng 05 năm Ất Tỵ)</p>
                     </div>
                 </div>
                 
                 <div class="content-box">
                     <p class="location">Tại: Tư gia nhà Trai</p>
-                    <p class="location">Xóm 9, Diễn Thái, Diễn Châu, Nghệ An</p>
+                    <p class="location">Khu2, Phượng Lâu, Việt Trì, Phú thọ</p>
                     
                     <p class="footer-text">Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi!</p>
                 </div>
@@ -327,23 +392,25 @@
     </div>
     
     <script>
-        // Để thay đổi ảnh nền và ảnh đại diện, hãy thay thế đường dẫn trong các dòng dưới đây
+        function generateInvitation() {
+            // Lấy giá trị từ ô input
+            const guestName = document.getElementById('guestName').value || 'Quý khách';
+            const guestFamily = document.getElementById('guestFamily').value || '';
+            
+            // Cập nhật nội dung trên thiệp
+            document.getElementById('guestNameDisplay').textContent = guestName;
+            document.getElementById('guestFamilyDisplay').textContent = guestFamily;
+            
+            // Hiển thị thiệp
+            document.getElementById('invitationCards').style.display = 'flex';
+            
+            // Cuộn xuống để xem thiệp
+            document.getElementById('invitationCards').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Tự động tạo thiệp khi trang tải xong
         document.addEventListener('DOMContentLoaded', function() {
-            // Đặt ảnh nền cho thiệp bên trái (Just Married)
-            document.querySelector('.left-card').style.backgroundImage = 
-                "url('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482621jZu/anh-mo-ta.png')";
-            
-            // Đặt ảnh nền cho thiệp bên phải (Save the Date)
-            document.querySelector('.right-card').style.backgroundImage = 
-                "url('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482621jZu/anh-mo-ta.png')";
-            
-            // Đặt ảnh đại diện cho thiệp bên trái
-            document.querySelector('.left-photo-frame img').src = 
-                "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/490786353_1817301489116136_7032427747813909680_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=fmAO8LNG5g4Q7kNvwG3dMwu&_nc_oc=Adl715W08bnPzohxrke7HCjiAXSitu5gs0j5FPBwJhch3spcxEFMK9WT-pqjomYphlp3h5eNfevHbPe4Jclw0PDZ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=-XLQesgB32qQK7Spu63_3g&oh=00_AfIbhtxZyYiJfyVOPyZptF4Ca_OZ29r-gItfrm0PuiySyA&oe=683330A4";
-            
-            // Đặt ảnh đại diện cho thiệp bên phải
-            document.querySelector('.right-photo-frame img').src = 
-                "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/490786353_1817301489116136_7032427747813909680_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=fmAO8LNG5g4Q7kNvwG3dMwu&_nc_oc=Adl715W08bnPzohxrke7HCjiAXSitu5gs0j5FPBwJhch3spcxEFMK9WT-pqjomYphlp3h5eNfevHbPe4Jclw0PDZ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=-XLQesgB32qQK7Spu63_3g&oh=00_AfIbhtxZyYiJfyVOPyZptF4Ca_OZ29r-gItfrm0PuiySyA&oe=683330A4";
+            generateInvitation();
         });
     </script>
 </body>
