@@ -23,10 +23,9 @@
         .card {
             width: 450px;
             height: 650px;
-            background-color: #f1f7f4;
             border-radius: 5px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -35,9 +34,34 @@
         }
         .left-card {
             text-align: center;
+            background-image: url('/api/placeholder/450/650');
+            background-size: cover;
+            background-position: center;
         }
         .right-card {
             text-align: center;
+            background-image: url('/api/placeholder/450/650');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+        .card-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .title {
             font-family: 'Brush Script MT', cursive;
@@ -45,6 +69,18 @@
             font-size: 32px;
             margin-bottom: 10px;
             font-weight: normal;
+            position: relative;
+            z-index: 1;
+        }
+        .title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 2px;
+            background-color: #a3c1ad;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .photo-frame {
             width: 280px;
@@ -53,12 +89,24 @@
             overflow: hidden;
             margin: 20px 0;
             position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         .left-photo-frame {
-            border: 3px solid #e8c07d;
+            border: 4px solid #e8c07d;
         }
         .right-photo-frame {
-            border: 3px solid #8d7b45;
+            border: 4px solid #8d7b45;
+        }
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            z-index: 2;
         }
         .photo {
             width: 100%;
@@ -70,22 +118,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-        }
-        .plant-top-left {
-            top: -40px;
-            left: -40px;
-            transform: rotate(-45deg);
-        }
-        .plant-bottom-right {
-            bottom: -40px;
-            right: -40px;
-            transform: rotate(135deg);
-        }
-        .plant-decoration-frame {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            pointer-events: none;
+            z-index: 3;
         }
         .save-the-date {
             text-transform: uppercase;
@@ -93,33 +126,47 @@
             font-size: 14px;
             letter-spacing: 2px;
             margin: 20px 0 5px;
+            position: relative;
+            z-index: 1;
         }
         .couple-names {
             font-family: 'Brush Script MT', cursive;
             color: #c15b5b;
             font-size: 30px;
             margin: 5px 0;
+            position: relative;
+            z-index: 1;
         }
         .invite-text {
             text-transform: uppercase;
             font-size: 12px;
             color: #3c544a;
             margin: 5px 0;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 1;
         }
         .guest-text {
             font-size: 14px;
             margin: 10px 0;
+            position: relative;
+            z-index: 1;
         }
         .date-container {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 15px 0;
+            position: relative;
+            z-index: 1;
         }
         .date-box {
             border: 1px solid #c15b5b;
             padding: 5px 10px;
             margin-left: 10px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            background-color: rgba(255, 255, 255, 0.5);
         }
         .date-number {
             font-size: 40px;
@@ -138,23 +185,38 @@
         }
         .location {
             font-style: italic;
-            margin: 10px 0;
+            margin: 5px 0;
             font-size: 14px;
+            position: relative;
+            z-index: 1;
         }
         .footer-text {
             font-style: italic;
             margin-top: 20px;
             font-size: 14px;
+            position: relative;
+            z-index: 1;
         }
         .thank-you {
             font-size: 16px;
             margin: 20px 0;
             max-width: 280px;
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
         .date-simple {
             margin: 20px 0;
             font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 15px 25px;
+            border-radius: 5px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
@@ -162,104 +224,127 @@
     <div class="container">
         <!-- Left Card - Just Married -->
         <div class="card left-card">
-            <h1 class="title">Just Married!</h1>
-            
-            <div class="photo-frame left-photo-frame">
-                <img class="photo" src="https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/490786353_1817301489116136_7032427747813909680_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=fmAO8LNG5g4Q7kNvwG3dMwu&_nc_oc=Adl715W08bnPzohxrke7HCjiAXSitu5gs0j5FPBwJhch3spcxEFMK9WT-pqjomYphlp3h5eNfevHbPe4Jclw0PDZ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=iJOXqSR4OZd_lW_rcbm64A&oh=00_AfIvWw1sC0VCHSV-Tmq3UL1ZIBGndwnhpoimsXSW-FyNow&oe=683330A4" alt="Wedding couple photo">
+            <div class="card-overlay"></div>
+            <div class="card-content">
+                <h1 class="title">Just Married!</h1>
+                
+                <div class="photo-frame left-photo-frame">
+                    <img class="photo" src="/api/placeholder/280/280" alt="Wedding couple photo">
+                </div>
+                
+                <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500" style="opacity: 0.7;">
+                    <g transform="translate(100, 280)">
+                        <!-- Green leaves decoration -->
+                        <path d="M0,0 C30,-30 60,-20 80,0" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                        <path d="M0,0 C20,-40 50,-50 70,-30" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                        <path d="M0,0 C40,-20 70,-10 80,20" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                        <ellipse cx="85" cy="0" rx="15" ry="7" fill="#a3c1ad" transform="rotate(-20)" opacity="0.7"/>
+                        <ellipse cx="70" cy="-32" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-45)" opacity="0.7"/>
+                        <ellipse cx="82" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(10)" opacity="0.7"/>
+                    </g>
+                    <g transform="translate(80, 300)">
+                        <!-- More green leaves -->
+                        <path d="M0,0 C-20,-35 -50,-40 -70,-20" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                        <path d="M0,0 C-30,-20 -60,-10 -75,15" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                        <ellipse cx="-75" cy="-22" rx="13" ry="7" fill="#a3c1ad" transform="rotate(45)" opacity="0.7"/>
+                        <ellipse cx="-78" cy="20" rx="14" ry="8" fill="#a3c1ad" transform="rotate(-10)" opacity="0.7"/>
+                    </g>
+                </svg>
+                
+                <div class="content-box">
+                    <p class="thank-you">Thank you for helping us make our Big Day so special.</p>
+                    
+                    <p class="date-simple">30 . 06 . 2024</p>
+                </div>
             </div>
-            
-            <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500">
-                <g transform="translate(100, 280)">
-                    <!-- Green leaves decoration -->
-                    <path d="M0,0 C30,-30 60,-20 80,0" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <path d="M0,0 C20,-40 50,-50 70,-30" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <path d="M0,0 C40,-20 70,-10 80,20" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <ellipse cx="85" cy="0" rx="15" ry="7" fill="#a3c1ad" transform="rotate(-20)"/>
-                    <ellipse cx="70" cy="-32" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-45)"/>
-                    <ellipse cx="82" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(10)"/>
-                </g>
-                <g transform="translate(80, 300)">
-                    <!-- More green leaves -->
-                    <path d="M0,0 C-20,-35 -50,-40 -70,-20" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <path d="M0,0 C-30,-20 -60,-10 -75,15" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <ellipse cx="-75" cy="-22" rx="13" ry="7" fill="#a3c1ad" transform="rotate(45)"/>
-                    <ellipse cx="-78" cy="20" rx="14" ry="8" fill="#a3c1ad" transform="rotate(-10)"/>
-                </g>
-                <g transform="translate(240, 150)">
-                    <!-- Top leaves -->
-                    <path d="M0,0 C20,-30 40,-35 60,-25" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <ellipse cx="65" cy="-25" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-15)"/>
-                </g>
-                <g transform="translate(270, 400)">
-                    <!-- Bottom leaves -->
-                    <path d="M0,0 C30,20 55,25 70,15" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                    <ellipse cx="72" cy="12" rx="13" ry="7" fill="#a3c1ad" transform="rotate(-20)"/>
-                </g>
-            </svg>
-            
-            <p class="thank-you">Thank you for helping us make our Big Day so special.</p>
-            
-            <p class="date-simple">30 . 06 . 2024</p>
         </div>
         
         <!-- Right Card - Save the Date -->
         <div class="card right-card">
-            <div class="photo-frame right-photo-frame">
-                <img class="photo" src="https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/490786353_1817301489116136_7032427747813909680_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=fmAO8LNG5g4Q7kNvwG3dMwu&_nc_oc=Adl715W08bnPzohxrke7HCjiAXSitu5gs0j5FPBwJhch3spcxEFMK9WT-pqjomYphlp3h5eNfevHbPe4Jclw0PDZ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=iJOXqSR4OZd_lW_rcbm64A&oh=00_AfIvWw1sC0VCHSV-Tmq3UL1ZIBGndwnhpoimsXSW-FyNow&oe=683330A4" alt="Wedding couple beach photo">
-            </div>
-            
-            <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500">
-                <g transform="translate(380, 140)">
-                    <!-- Flower outline and leaves decoration -->
-                    <path d="M0,0 C-10,-20 -30,-30 -50,-25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                    <path d="M-50,-25 C-60,-20 -65,-5 -60,5" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                    <path d="M-50,-25 C-40,-30 -30,-20 -25,-10" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                    <ellipse cx="-65" cy="0" rx="10" ry="5" fill="#a3c1ad" transform="rotate(30)"/>
+            <div class="card-overlay"></div>
+            <div class="card-content">
+                <div class="photo-frame right-photo-frame">
+                    <img class="photo" src="/api/placeholder/280/280" alt="Wedding couple beach photo">
+                </div>
+                
+                <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500" style="opacity: 0.7;">
+                    <g transform="translate(380, 140)">
+                        <!-- Flower outline and leaves decoration -->
+                        <path d="M0,0 C-10,-20 -30,-30 -50,-25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                        <path d="M-50,-25 C-60,-20 -65,-5 -60,5" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                        <path d="M-50,-25 C-40,-30 -30,-20 -25,-10" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                        <ellipse cx="-65" cy="0" rx="10" ry="5" fill="#a3c1ad" transform="rotate(30)" opacity="0.7"/>
+                        
+                        <!-- Flower petals outline -->
+                        <path d="M-40,-15 C-45,-25 -35,-40 -25,-35" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
+                        <path d="M-40,-15 C-50,-20 -45,-35 -35,-40" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
+                        <path d="M-40,-15 C-35,-25 -20,-25 -20,-15" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
+                        <path d="M-40,-15 C-30,-10 -20,-20 -25,-30" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
+                    </g>
+                    <g transform="translate(100, 400)">
+                        <!-- Bottom left eucalyptus -->
+                        <path d="M0,0 C20,15 40,20 60,15" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                        <path d="M0,0 C15,20 35,30 55,25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                        <ellipse cx="60" cy="15" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-20)" opacity="0.7"/>
+                        <ellipse cx="55" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(-40)" opacity="0.7"/>
+                    </g>
+                </svg>
+                
+                <div class="content-box">
+                    <p class="save-the-date">Save the date</p>
                     
-                    <!-- Flower petals outline -->
-                    <path d="M-40,-15 C-45,-25 -35,-40 -25,-35" stroke="#333" fill="none" stroke-width="1"/>
-                    <path d="M-40,-15 C-50,-20 -45,-35 -35,-40" stroke="#333" fill="none" stroke-width="1"/>
-                    <path d="M-40,-15 C-35,-25 -20,-25 -20,-15" stroke="#333" fill="none" stroke-width="1"/>
-                    <path d="M-40,-15 C-30,-10 -20,-20 -25,-30" stroke="#333" fill="none" stroke-width="1"/>
-                </g>
-                <g transform="translate(100, 400)">
-                    <!-- Bottom left eucalyptus -->
-                    <path d="M0,0 C20,15 40,20 60,15" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                    <path d="M0,0 C15,20 35,30 55,25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                    <ellipse cx="60" cy="15" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-20)"/>
-                    <ellipse cx="55" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(-40)"/>
-                </g>
-            </svg>
-            
-            <p class="save-the-date">Save the date</p>
-            
-            <h2 class="couple-names">Xuân Thịnh & Diễm Hằng</h2>
-            
-            <p class="invite-text">TRÂN TRỌNG KÍNH MỜI</p>
-            
-            <p class="guest-text">Bạn + NT (GĐ Bạn)</p>
-            
-            <p class="guest-text">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
-            
-            <div class="date-container">
-                <div>
-                    <p class="time-text">11 GIỜ 30</p>
-                    <p class="time-text">CHỦ NHẬT</p>
+                    <h2 class="couple-names">Xuân Thịnh & Diễm Hằng</h2>
+                    
+                    <p class="invite-text">TRÂN TRỌNG KÍNH MỜI</p>
+                    
+                    <p class="guest-text">Bạn + NT (GĐ Bạn)</p>
+                    
+                    <p class="guest-text">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
                 </div>
-                <div class="date-box">
-                    <div class="date-number">30</div>
+                
+                <div class="date-container">
+                    <div>
+                        <p class="time-text">11 GIỜ 30</p>
+                        <p class="time-text">CHỦ NHẬT</p>
+                    </div>
+                    <div class="date-box">
+                        <div class="date-number">30</div>
+                    </div>
+                    <div>
+                        <p class="month-text">06 - 2024</p>
+                        <p class="month-text">(Nhằm ngày 25 tháng 05 năm Giáp Thìn)</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="month-text">06 - 2024</p>
-                    <p class="month-text">(Nhằm ngày 25 tháng 05 năm Giáp Thìn)</p>
+                
+                <div class="content-box">
+                    <p class="location">Tại: Tư gia nhà Trai</p>
+                    <p class="location">Xóm 9, Diễn Thái, Diễn Châu, Nghệ An</p>
+                    
+                    <p class="footer-text">Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi!</p>
                 </div>
             </div>
-            
-            <p class="location">Tại: Tư gia nhà Trai</p>
-            <p class="location">Xóm 9, Diễn Thái, Diễn Châu, Nghệ An</p>
-            
-            <p class="footer-text">Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi!</p>
         </div>
     </div>
+    
+    <script>
+        // Để thay đổi ảnh nền và ảnh đại diện, hãy thay thế đường dẫn trong các dòng dưới đây
+        document.addEventListener('DOMContentLoaded', function() {
+            // Đặt ảnh nền cho thiệp bên trái (Just Married)
+            document.querySelector('.left-card').style.backgroundImage = 
+                "url('/api/placeholder/450/650')";
+            
+            // Đặt ảnh nền cho thiệp bên phải (Save the Date)
+            document.querySelector('.right-card').style.backgroundImage = 
+                "url('/api/placeholder/450/650')";
+            
+            // Đặt ảnh đại diện cho thiệp bên trái
+            document.querySelector('.left-photo-frame img').src = 
+                "/api/placeholder/280/280";
+            
+            // Đặt ảnh đại diện cho thiệp bên phải
+            document.querySelector('.right-photo-frame img').src = 
+                "/api/placeholder/280/280";
+        });
+    </script>
 </body>
 </html>
