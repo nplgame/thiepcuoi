@@ -1,578 +1,265 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Thiệp Cưới Botanical</title>
+    <title>Wedding Invitation</title>
     <style>
-        /* Main styles */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f8f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #557153;
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #557153;
-        }
-        
-        /* Form and preview layout */
-        .main-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        @media (min-width: 992px) {
-            .main-wrapper {
-                flex-direction: row;
-            }
-            .editor-panel {
-                flex: 1;
-            }
-            .preview-panel {
-                flex: 1;
-            }
-        }
-        
-        /* Editor panel styles */
-        .editor-panel {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #666;
-            position: relative;
-        }
-        .tab.active {
-            color: #557153;
-            border-bottom: 2px solid #557153;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        
-        /* Form styles */
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #444;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-        .form-row .form-group {
-            flex: 1;
-        }
-        button {
-            background-color: #557153;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #445e41;
-        }
-        
-        /* File upload */
-        .file-upload {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .file-upload-preview {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            font-family: 'Times New Roman', Times, serif;
             background-color: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
-            overflow: hidden;
-            border: 1px solid #ddd;
-        }
-        .file-upload-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* Color picker */
-        .color-palette {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-        .color-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .color-option:hover, .color-option.selected {
-            transform: scale(1.1);
-            box-shadow: 0 0 5px rgba(0,0,0,0.2);
-        }
-        .color-option.selected {
-            border: 2px solid #557153;
-        }
-        
-        /* Template switcher */
-        .template-options {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-        }
-        .template-option {
-            border: 1px solid #ddd;
-            padding: 5px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            background-color: #f9f9f9;
-        }
-        .template-option img {
-            width: 120px;
-            height: 160px;
-            object-fit: cover;
-            display: block;
-        }
-        .template-option:hover, .template-option.selected {
-            transform: scale(1.05);
-        }
-        .template-option.selected {
-            border: 2px solid #557153;
-        }
-        
-        /* Preview panel styles */
-        .preview-panel {
-            background-color: white;
+            min-height: 100vh;
+            margin: 0;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
         }
-        .preview-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        /* Card preview styles */
-        .card-preview-container {
+        .container {
             display: flex;
             gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 20px;
+            max-width: 1000px;
         }
         .card {
-            width: 350px;
-            height: 480px;
-            background-color: #e8f0e8;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            position: relative;
-            flex-shrink: 0;
-        }
-        
-        /* Just Married template */
-        .template1 {
+            width: 450px;
+            height: 650px;
+            background-color: #f1f7f4;
+            border-radius: 5px;
             padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .left-card {
             text-align: center;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='none'%3E%3Cpath d='M20,20 Q50,10 80,20 Q90,50 80,80 Q50,90 20,80 Q10,50 20,20' fill='%23e8f0e8' stroke='%23d8e5d8' stroke-width='1'/%3E%3C/svg%3E");
-            background-size: cover;
         }
-        .template1 .card-title {
-            font-family: 'Times New Roman', serif;
-            color: #557153;
-            font-size: 28px;
-            font-style: italic;
-            margin-bottom: 15px;
+        .right-card {
+            text-align: center;
         }
-        .template1 .couple-photo-container {
-            width: 220px;
-            height: 220px;
+        .title {
+            font-family: 'Brush Script MT', cursive;
+            color: #3c544a;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        .photo-frame {
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             overflow: hidden;
-            border: 5px solid #ebcb96;
             margin: 20px 0;
             position: relative;
-            z-index: 1;
         }
-        .template1 .couple-photo-container::before {
-            content: "";
-            position: absolute;
-            top: -30px;
-            left: -30px;
-            right: -30px;
-            bottom: -30px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='%23618462' opacity='0.8'%3E%3Cpath d='M190,50 Q210,30 230,50 Q250,70 230,90 Q210,110 190,90 Q170,70 190,50' /%3E%3Cpath d='M110,90 Q130,70 150,90 Q170,110 150,130 Q130,150 110,130 Q90,110 110,90' /%3E%3Cpath d='M270,90 Q290,70 310,90 Q330,110 310,130 Q290,150 270,130 Q250,110 270,90' /%3E%3Cpath d='M190,130 Q210,110 230,130 Q250,150 230,170 Q210,190 190,170 Q170,150 190,130' /%3E%3Cpath d='M110,170 Q130,150 150,170 Q170,190 150,210 Q130,230 110,210 Q90,190 110,170' /%3E%3Cpath d='M270,170 Q290,150 310,170 Q330,190 310,210 Q290,230 270,210 Q250,190 270,170' /%3E%3Cpath d='M190,210 Q210,190 230,210 Q250,230 230,250 Q210,270 190,250 Q170,230 190,210' /%3E%3Cpath d='M110,250 Q130,230 150,250 Q170,270 150,290 Q130,310 110,290 Q90,270 110,250' /%3E%3Cpath d='M270,250 Q290,230 310,250 Q330,270 310,290 Q290,310 270,290 Q250,270 270,250' /%3E%3Cpath d='M190,290 Q210,270 230,290 Q250,310 230,330 Q210,350 190,330 Q170,310 190,290' /%3E%3C/g%3E%3C/svg%3E");
-            z-index: -1;
+        .left-photo-frame {
+            border: 3px solid #e8c07d;
         }
-        .template1 .couple-photo {
+        .right-photo-frame {
+            border: 3px solid #8d7b45;
+        }
+        .photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .template1 .card-message {
-            font-size: 14px;
-            margin: 20px 0;
-        }
-        .template1 .card-date {
-            font-size: 16px;
-            letter-spacing: 2px;
-        }
-        
-        /* Save The Date template */
-        .template2 {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='none'%3E%3Cpath d='M20,20 Q50,10 80,20 Q90,50 80,80 Q50,90 20,80 Q10,50 20,20' fill='%23e8f0e8' stroke='%23d8e5d8' stroke-width='1'/%3E%3C/svg%3E");
-            background-size: cover;
-            position: relative;
-        }
-        .template2::after {
-            content: "";
+        .plant-decoration {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 120px;
-            height: 120px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23618462' stroke-width='1'%3E%3Cpath d='M20,30 C40,10 80,10 100,30' /%3E%3Cpath d='M30,20 C10,40 10,80 30,100' /%3E%3Cpath d='M100,30 C120,50 120,90 100,110' /%3E%3Cpath d='M30,100 C50,120 90,120 110,100' /%3E%3C/g%3E%3Cg fill='%23ebcb96' opacity='0.5'%3E%3Ccircle cx='40' cy='40' r='5' /%3E%3Ccircle cx='80' cy='30' r='4' /%3E%3Ccircle cx='30' cy='80' r='6' /%3E%3Ccircle cx='90' cy='90' r='5' /%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.7;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
-        .template2::before {
-            content: "";
+        .plant-top-left {
+            top: -40px;
+            left: -40px;
+            transform: rotate(-45deg);
+        }
+        .plant-bottom-right {
+            bottom: -40px;
+            right: -40px;
+            transform: rotate(135deg);
+        }
+        .plant-decoration-frame {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 120px;
-            height: 120px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23618462' stroke-width='1'%3E%3Cpath d='M20,30 C40,10 80,10 100,30' /%3E%3Cpath d='M30,20 C10,40 10,80 30,100' /%3E%3Cpath d='M100,30 C120,50 120,90 100,110' /%3E%3Cpath d='M30,100 C50,120 90,120 110,100' /%3E%3C/g%3E%3Cg fill='%23ebcb96' opacity='0.5'%3E%3Ccircle cx='40' cy='40' r='5' /%3E%3Ccircle cx='80' cy='30' r='4' /%3E%3Ccircle cx='30' cy='80' r='6' /%3E%3Ccircle cx='90' cy='90' r='5' /%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.7;
-            transform: rotate(180deg);
-            z-index: 1;
+            width: 400px;
+            height: 400px;
+            pointer-events: none;
         }
-        .template2 .save-the-date {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #557153;
-            font-size: 18px;
-            letter-spacing: 2px;
+        .save-the-date {
             text-transform: uppercase;
-            margin-top: 15px;
-        }
-        .template2 .couple-photo-container {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid #7d8e7d;
-            margin: 20px 0;
-            z-index: 2;
-        }
-        .template2 .couple-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .template2 .couple-names {
-            font-family: 'Times New Roman', serif;
-            color: #d16c6c;
-            font-size: 28px;
-            font-style: italic;
-            margin: 15px 0;
-            z-index: 2;
-        }
-        .template2 .invitation-text {
+            color: #3c544a;
             font-size: 14px;
-            line-height: 1.6;
+            letter-spacing: 2px;
+            margin: 20px 0 5px;
+        }
+        .couple-names {
+            font-family: 'Brush Script MT', cursive;
+            color: #c15b5b;
+            font-size: 30px;
+            margin: 5px 0;
+        }
+        .invite-text {
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #3c544a;
+            margin: 5px 0;
+        }
+        .guest-text {
+            font-size: 14px;
             margin: 10px 0;
-            z-index: 2;
         }
-        .template2 .event-time {
-            margin: 15px 0;
-            z-index: 2;
-        }
-        .template2 .event-date {
+        .date-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
-        }
-        .template2 .date-box {
-            display: inline-block;
-            width: 40px;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            font-size: 26px;
-            color: #d16c6c;
-            border: 1px solid #d16c6c;
-            margin: 0 10px;
-        }
-        .template2 .event-location {
             margin: 15px 0;
+        }
+        .date-box {
+            border: 1px solid #c15b5b;
+            padding: 5px 10px;
+            margin-left: 10px;
+        }
+        .date-number {
+            font-size: 40px;
+            color: #c15b5b;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .time-text {
+            text-transform: uppercase;
             font-size: 14px;
-            color: #333;
-            z-index: 2;
+            font-weight: bold;
         }
-        .template2 .event-note {
+        .month-text {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .location {
             font-style: italic;
-            font-size: 12px;
-            margin-top: 15px;
-            color: #666;
-            z-index: 2;
+            margin: 10px 0;
+            font-size: 14px;
         }
-        
-        /* Download button */
-        .btn-download {
-            background-color: #4CAF50;
+        .footer-text {
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 14px;
         }
-        .btn-download:hover {
-            background-color: #3e8e41;
+        .thank-you {
+            font-size: 16px;
+            margin: 20px 0;
+            max-width: 280px;
+            line-height: 1.6;
         }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .main-wrapper {
-                flex-direction: column;
-            }
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            .card-preview-container {
-                justify-content: center;
-            }
-            .template-options {
-                justify-content: center;
-            }
+        .date-simple {
+            margin: 20px 0;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Tạo Thiệp Cưới Botanical Tùy Chỉnh</h1>
+        <!-- Left Card - Just Married -->
+        <div class="card left-card">
+            <h1 class="title">Just Married!</h1>
+            
+            <div class="photo-frame left-photo-frame">
+                <img class="photo" src="https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/490786353_1817301489116136_7032427747813909680_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=fmAO8LNG5g4Q7kNvwG3dMwu&_nc_oc=Adl715W08bnPzohxrke7HCjiAXSitu5gs0j5FPBwJhch3spcxEFMK9WT-pqjomYphlp3h5eNfevHbPe4Jclw0PDZ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=iJOXqSR4OZd_lW_rcbm64A&oh=00_AfIvWw1sC0VCHSV-Tmq3UL1ZIBGndwnhpoimsXSW-FyNow&oe=683330A4" alt="Wedding couple photo">
+            </div>
+            
+            <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500">
+                <g transform="translate(100, 280)">
+                    <!-- Green leaves decoration -->
+                    <path d="M0,0 C30,-30 60,-20 80,0" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <path d="M0,0 C20,-40 50,-50 70,-30" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <path d="M0,0 C40,-20 70,-10 80,20" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <ellipse cx="85" cy="0" rx="15" ry="7" fill="#a3c1ad" transform="rotate(-20)"/>
+                    <ellipse cx="70" cy="-32" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-45)"/>
+                    <ellipse cx="82" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(10)"/>
+                </g>
+                <g transform="translate(80, 300)">
+                    <!-- More green leaves -->
+                    <path d="M0,0 C-20,-35 -50,-40 -70,-20" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <path d="M0,0 C-30,-20 -60,-10 -75,15" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <ellipse cx="-75" cy="-22" rx="13" ry="7" fill="#a3c1ad" transform="rotate(45)"/>
+                    <ellipse cx="-78" cy="20" rx="14" ry="8" fill="#a3c1ad" transform="rotate(-10)"/>
+                </g>
+                <g transform="translate(240, 150)">
+                    <!-- Top leaves -->
+                    <path d="M0,0 C20,-30 40,-35 60,-25" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <ellipse cx="65" cy="-25" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-15)"/>
+                </g>
+                <g transform="translate(270, 400)">
+                    <!-- Bottom leaves -->
+                    <path d="M0,0 C30,20 55,25 70,15" stroke="#7d9d85" fill="none" stroke-width="2"/>
+                    <ellipse cx="72" cy="12" rx="13" ry="7" fill="#a3c1ad" transform="rotate(-20)"/>
+                </g>
+            </svg>
+            
+            <p class="thank-you">Thank you for helping us make our Big Day so special.</p>
+            
+            <p class="date-simple">30 . 06 . 2024</p>
+        </div>
         
-        <div class="main-wrapper">
-            <!-- Editor Panel -->
-            <div class="editor-panel">
-                <div class="tabs">
-                    <div class="tab active" data-tab="content">Nội Dung</div>
-                    <div class="tab" data-tab="appearance">Giao Diện</div>
-                    <div class="tab" data-tab="template">Mẫu Thiệp</div>
+        <!-- Right Card - Save the Date -->
+        <div class="card right-card">
+            <div class="photo-frame right-photo-frame">
+                <img class="photo" src="https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/490786353_1817301489116136_7032427747813909680_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=fmAO8LNG5g4Q7kNvwG3dMwu&_nc_oc=Adl715W08bnPzohxrke7HCjiAXSitu5gs0j5FPBwJhch3spcxEFMK9WT-pqjomYphlp3h5eNfevHbPe4Jclw0PDZ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=iJOXqSR4OZd_lW_rcbm64A&oh=00_AfIvWw1sC0VCHSV-Tmq3UL1ZIBGndwnhpoimsXSW-FyNow&oe=683330A4" alt="Wedding couple beach photo">
+            </div>
+            
+            <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500">
+                <g transform="translate(380, 140)">
+                    <!-- Flower outline and leaves decoration -->
+                    <path d="M0,0 C-10,-20 -30,-30 -50,-25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                    <path d="M-50,-25 C-60,-20 -65,-5 -60,5" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                    <path d="M-50,-25 C-40,-30 -30,-20 -25,-10" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                    <ellipse cx="-65" cy="0" rx="10" ry="5" fill="#a3c1ad" transform="rotate(30)"/>
+                    
+                    <!-- Flower petals outline -->
+                    <path d="M-40,-15 C-45,-25 -35,-40 -25,-35" stroke="#333" fill="none" stroke-width="1"/>
+                    <path d="M-40,-15 C-50,-20 -45,-35 -35,-40" stroke="#333" fill="none" stroke-width="1"/>
+                    <path d="M-40,-15 C-35,-25 -20,-25 -20,-15" stroke="#333" fill="none" stroke-width="1"/>
+                    <path d="M-40,-15 C-30,-10 -20,-20 -25,-30" stroke="#333" fill="none" stroke-width="1"/>
+                </g>
+                <g transform="translate(100, 400)">
+                    <!-- Bottom left eucalyptus -->
+                    <path d="M0,0 C20,15 40,20 60,15" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                    <path d="M0,0 C15,20 35,30 55,25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
+                    <ellipse cx="60" cy="15" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-20)"/>
+                    <ellipse cx="55" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(-40)"/>
+                </g>
+            </svg>
+            
+            <p class="save-the-date">Save the date</p>
+            
+            <h2 class="couple-names">Xuân Thịnh & Diễm Hằng</h2>
+            
+            <p class="invite-text">TRÂN TRỌNG KÍNH MỜI</p>
+            
+            <p class="guest-text">Bạn + NT (GĐ Bạn)</p>
+            
+            <p class="guest-text">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
+            
+            <div class="date-container">
+                <div>
+                    <p class="time-text">11 GIỜ 30</p>
+                    <p class="time-text">CHỦ NHẬT</p>
                 </div>
-                
-                <!-- Content Tab -->
-                <div class="tab-content active" id="content-tab">
-                    <form id="invitation-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="groom-name">Tên Chú Rể</label>
-                                <input type="text" id="groom-name" name="groom-name" value="Xuân Thịnh">
-                            </div>
-                            <div class="form-group">
-                                <label for="bride-name">Tên Cô Dâu</label>
-                                <input type="text" id="bride-name" name="bride-name" value="Diễm Hằng">
-                            </div>
-                        </div>
-
-                        <div class="form-group file-upload">
-                            <label>Ảnh Cặp Đôi</label>
-                            <div class="file-upload-preview">
-                                <img id="photo-preview" src="/api/placeholder/400/400" alt="Ảnh cặp đôi">
-                            </div>
-                            <input type="file" id="couple-photo" name="couple-photo" accept="image/*">
-                            <small>Nên chọn ảnh vuông để hiển thị đẹp nhất</small>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="wedding-day">Ngày</label>
-                                <input type="number" id="wedding-day" name="wedding-day" min="1" max="31" value="30">
-                            </div>
-                            <div class="form-group">
-                                <label for="wedding-month">Tháng</label>
-                                <input type="number" id="wedding-month" name="wedding-month" min="1" max="12" value="06">
-                            </div>
-                            <div class="form-group">
-                                <label for="wedding-year">Năm</label>
-                                <input type="number" id="wedding-year" name="wedding-year" min="2024" max="2050" value="2024">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="wedding-hour">Giờ</label>
-                                <input type="number" id="wedding-hour" name="wedding-hour" min="0" max="23" value="11">
-                            </div>
-                            <div class="form-group">
-                                <label for="wedding-minute">Phút</label>
-                                <input type="number" id="wedding-minute" name="wedding-minute" min="0" max="59" value="30">
-                            </div>
-                            <div class="form-group">
-                                <label for="wedding-day-of-week">Thứ</label>
-                                <select id="wedding-day-of-week" name="wedding-day-of-week">
-                                    <option value="Thứ Hai">Thứ Hai</option>
-                                    <option value="Thứ Ba">Thứ Ba</option>
-                                    <option value="Thứ Tư">Thứ Tư</option>
-                                    <option value="Thứ Năm">Thứ Năm</option>
-                                    <option value="Thứ Sáu">Thứ Sáu</option>
-                                    <option value="Thứ Bảy">Thứ Bảy</option>
-                                    <option value="Chủ Nhật" selected>Chủ Nhật</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lunar-date">Ngày Âm Lịch (nếu có)</label>
-                            <input type="text" id="lunar-date" name="lunar-date" value="Nhằm ngày 25 tháng 05 năm Giáp Thìn">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="venue-name">Tên Địa Điểm</label>
-                            <input type="text" id="venue-name" name="venue-name" value="Tư gia nhà Trai">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="venue-address">Địa Chỉ</label>
-                            <input type="text" id="venue-address" name="venue-address" value="Xóm 9, Diễn Thái, Diễn Châu, Nghệ An">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="template1-message">Lời Nhắn (Mẫu Just Married)</label>
-                            <textarea id="template1-message" name="template1-message" rows="2">Thank you for helping us make our Big Day so special.</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="template2-message">Lời Nhắn (Mẫu Save The Date)</label>
-                            <textarea id="template2-message" name="template2-message" rows="2">Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi!</textarea>
-                        </div>
-
-                        <button type="button" id="update-preview">Cập Nhật Thiệp Mời</button>
-                    </form>
+                <div class="date-box">
+                    <div class="date-number">30</div>
                 </div>
-                
-                <!-- Appearance Tab -->
-                <div class="tab-content" id="appearance-tab">
-                    <div class="form-group">
-                        <label>Màu Nền Thiệp</label>
-                        <div class="color-palette" id="bg-color-palette">
-                            <div class="color-option selected" style="background-color: #e8f0e8;" data-color="#e8f0e8"></div>
-                            <div class="color-option" style="background-color: #f0e8e8;" data-color="#f0e8e8"></div>
-                            <div class="color-option" style="background-color: #e8e8f0;" data-color="#e8e8f0"></div>
-                            <div class="color-option" style="background-color: #f0f0e8;" data-color="#f0f0e8"></div>
-                            <div class="color-option" style="background-color: #e8f0f0;" data-color="#e8f0f0"></div>
-                            <div class="color-option" style="background-color: #f0e8f0;" data-color="#f0e8f0"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Màu Tiêu Đề</label>
-                        <div class="color-palette" id="title-color-palette">
-                            <div class="color-option selected" style="background-color: #557153;" data-color="#557153"></div>
-                            <div class="color-option" style="background-color: #d16c6c;" data-color="#d16c6c"></div>
-                            <div class="color-option" style="background-color: #6c6cd1;" data-color="#6c6cd1"></div>
-                            <div class="color-option" style="background-color: #d1b96c;" data-color="#d1b96c"></div>
-                            <div class="color-option" style="background-color: #6cd1b9;" data-color="#6cd1b9"></div>
-                            <div class="color-option" style="background-color: #b96cd1;" data-color="#b96cd1"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Màu Tên Cặp Đôi</label>
-                        <div class="color-palette" id="name-color-palette">
-                            <div class="color-option" style="background-color: #557153;" data-color="#557153"></div>
-                            <div class="color-option selected" style="background-color: #d16c6c;" data-color="#d16c6c"></div>
-                            <div class="color-option" style="background-color: #6c6cd1;" data-color="#6c6cd1"></div>
-                            <div class="color-option" style="background-color: #d1b96c;" data-color="#d1b96c"></div>
-                            <div class="color-option" style="background-color: #6cd1b9;" data-color="#6cd1b9"></div>
-                            <div class="color-option" style="background-color: #b96cd1;" data-color="#b96cd1"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Màu Viền Ảnh</label>
-                        <div class="color-palette" id="border-color-palette">
-                            <div class="color-option" style="background-color: #557153;" data-color="#557153"></div>
-                            <div class="color-option" style="background-color: #d16c6c;" data-color="#d16c6c"></div>
-                            <div class="color-option" style="background-color: #6c6cd1;" data-color="#6c6cd1"></div>
-                            <div class="color-option selected" style="background-color: #ebcb96;" data-color="#ebcb96"></div>
-                            <div class="color-option" style="background-color: #6cd1b9;" data-color="#6cd1b9"></div>
-                            <div class="color-option" style="background-color: #b96cd1;" data-color="#b96cd1"></div>
-                        </div>
-                    </div>
-                    
-                    <button type="button" id="update-colors">Cập Nhật Màu Sắc</button>
+                <div>
+                    <p class="month-text">06 - 2024</p>
+                    <p class="month-text">(Nhằm ngày 25 tháng 05 năm Giáp Thìn)</p>
                 </div>
-                
-                <!-- Template Tab -->
-                <div class="tab-content" id="template-tab">
-                    <div class="form-group">
-                        <label>Chọn Mẫu Thiệp</label>
-                        <div class="template-options">
-                            <div class="template-option selected" data-template="template1">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='320' viewBox='0 0 240 320'%3E%3Crect width='240' height='320' fill='%23e8f0e8'/%3E%3Ctext x='120' y='40' font-family='serif' font-size='20' text-anchor='middle' fill='%23557153' font-style='italic'%3EJust Married!%3C/text%3E%3Ccircle cx='120' cy='140' r='60' fill='%23f9f9f9' stroke='%23ebcb96' stroke-width='5'/%3E%3Ctext x='120' y='240' font-family='sans-serif' font-size='12' text-anchor='middle' fill='%23333'%3EThank you message%3C/text%3E%3Ctext x='120' y='270' font-family='sans-serif' font-size='12' text-anchor='middle' fill='%23333'%3E30.06.2024%3C/text%3E%3C/svg%3E" alt="Template 1">
-                                <p>Just Married</p>
-                            </div>
-                            <div class="template-option" data-template="template2">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='320' viewBox='0 0 240 320'%3E%3Crect width='240' height='320' fill='%23e8f0e8'/%3E%3Ctext x='120' y='40' font-family='sans-serif' font-size='14' text-anchor='middle' fill='%23557153'%3ESAVE THE DATE%3C/text%3E%3Ccircle cx='120' cy='120' r='50' fill='%23f9f9f9' stroke='%237d8e7d' stroke-width='5'/%3E%3Ctext x='120' y='200' font-family='serif' font-size='16' text-anchor='middle' fill='%23d16c6c' font-style='italic'%3ECặp đôi%3C/text%3E%3Crect x='110' y='230' width='30' height='40' stroke='%23d16c6c' fill='none'/%3E%3Ctext x='125' y='258' font-family='sans-serif' font-size='20' text-anchor='middle' fill='%23d16c6c'%3E30%3C/text%3E%3C/svg%3E" alt="Template 2">
-                                <p>Save The Date</p>
-                            </div>
-                        </div>
+            </div>
+            
+            <p class="location">Tại: Tư gia nhà Trai</p>
+            <p class="location">Xóm 9, Diễn Thái, Diễn Châu, Nghệ An</p>
+            
+            <p class="footer-text">Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi!</p>
+        </div>
+    </div>
+</body>
+</html>
