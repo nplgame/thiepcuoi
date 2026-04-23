@@ -1453,8 +1453,8 @@
     */
 
     const GOOGLE_SHEET_URL = "GOOGLE_SHEET_URL";
-    const TELEGRAM_BOT_TOKEN = "TELEGRAM_BOT_TOKEN";
-    const TELEGRAM_CHAT_ID = "TELEGRAM_CHAT_ID";
+    const TELEGRAM_BOT_TOKEN = "6846592350:AAFt1AspGQlSdnLjW3S47TK4_UFUSZbvuYY";
+    const TELEGRAM_CHAT_ID = "@botnetsd_bot";
 
     const form = document.getElementById("register-form");
     const needSelect = document.getElementById("need");
@@ -1542,9 +1542,9 @@
     async function sendToTelegram(payload) {
       if (
         !TELEGRAM_BOT_TOKEN ||
-        TELEGRAM_BOT_TOKEN === "TELEGRAM_BOT_TOKEN" ||
+        TELEGRAM_BOT_TOKEN === "6846592350:AAFt1AspGQlSdnLjW3S47TK4_UFUSZbvuYY" ||
         !TELEGRAM_CHAT_ID ||
-        TELEGRAM_CHAT_ID === "TELEGRAM_CHAT_ID"
+        TELEGRAM_CHAT_ID === "@botnetsd_bot"
       ) {
         throw new Error("Chưa cấu hình Telegram bot.");
       }
