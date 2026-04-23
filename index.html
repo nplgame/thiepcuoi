@@ -1424,8 +1424,8 @@
 
       2. Vao Extensions > Apps Script va dan doan ma sau:
 
-         function doPost(e) {
-           var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
+         function doGet(e) {
+           var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
            var data = {
              name: e.parameter.name || "",
              phone: e.parameter.phone || "",
@@ -1450,15 +1450,17 @@
          Execute as: Me
          Who has access: Anyone
 
-      4. Copy Web App URL va thay vao bien GOOGLE_SHEET_URL ben duoi.
+      4. Neu sheet cua ban khong ten la "Sheet1", cach dung getActiveSheet() o tren se an toan hon.
+         Copy Web App URL va thay vao bien GOOGLE_SHEET_URL ben duoi.
 
       Luu y:
       - Apps Script phai duoc deploy lai neu ban thay doi code.
+      - Vi frontend hien gui du lieu bang GET, Apps Script can dung ham doGet thay vi doPost.
       - Telegram Bot Token khong nen de lo trong frontend khi chay thuc te.
         Ban co the chuyen logic nay sang Netlify Functions/Vercel Functions de an token.
     */
 
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjnRt2-0EaoWANjnJuu8DPviNLgRYDgDnLxE2BlI6T-RgMQYv4j5alVdpDHVIeyOCw3w/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyh63bgvv53fZmS4RfB7om8J_4petRZZFv5CNM9JGhxJPPTAunKNixKEr_PMV2TcNwC/exec";
     const TELEGRAM_BOT_TOKEN = "6846592350:AAFt1AspGQlSdnLjW3S47TK4_UFUSZbvuYY";
     const TELEGRAM_CHAT_ID = "1220059074";
 
@@ -1541,6 +1543,15 @@
       return params;
     }
 
+    function appendQueryParams(url, payload) {
+      const nextUrl = new URL(url);
+      Object.entries(payload).forEach(([key, value]) => {
+        nextUrl.searchParams.set(key, value == null ? "" : String(value));
+      });
+      nextUrl.searchParams.set("_t", Date.now().toString());
+      return nextUrl.toString();
+    }
+
     async function sendToGoogleSheet(payload) {
       if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "GOOGLE_SHEET_URL") {
         throw new Error("Chưa cấu hình GOOGLE_SHEET_URL.");
@@ -1554,10 +1565,9 @@
         throw new Error("GOOGLE_SHEET_URL chưa đúng định dạng Web App URL của Google Apps Script.");
       }
 
-      const response = await fetch(GOOGLE_SHEET_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: toFormBody(payload)
+      const response = await fetch(appendQueryParams(GOOGLE_SHEET_URL, payload), {
+        method: "GET",
+        mode: "no-cors"
       });
 
       return response;
