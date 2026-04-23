@@ -1,417 +1,1176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
-    <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .input-container {
-            margin-bottom: 30px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
-        }
-        .input-group {
-            margin-bottom: 15px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #3c544a;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .btn {
-            background-color: #3c544a;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #2a3c35;
-        }
-        .container {
-            display: flex;
-            gap: 20px;
-            max-width: 1000px;
-        }
-        .card {
-            width: 450px;
-            height: 650px;
-            border-radius: 5px;
-            padding:, 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .left-card {
-            text-align: center;
-            background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=450&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        .right-card {
-            text-align: center;
-            background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=450&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        .card-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.7);
-            z-index: 1;
-        }
-        .card-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .title {
-            font-family: 'Brush Script MT', cursive;
-            color: #3c544a;
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-weight: normal;
-            position: relative;
-            z-index: 1;
-        }
-        .title::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 2px;
-            background-color: #a3c1ad;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .photo-frame {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 20px 0;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .left-photo-frame {
-            border: 4px solid #e8c07d;
-        }
-        .right-photo-frame {
-            border: 4px solid #8d7b45;
-        }
-        .photo-frame::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            z-index: 2;
-        }
-        .photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .plant-decoration {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 3;
-        }
-        .save-the-date {
-            text-transform: uppercase;
-            color: #3c544a;
-            font-size: 14px;
-            letter-spacing: 2px;
-            margin: 20px 0 5px;
-            position: relative;
-            z-index: 1;
-        }
-        .couple-names {
-            font-family: 'Brush Script MT', cursive;
-            color: #c15b5b;
-            font-size: 30px;
-            margin: 5px 0;
-            position: relative;
-            z-index: 1;
-        }
-        .invite-text {
-            text-transform: uppercase;
-            font-size: 12px;
-            color: #3c544a;
-            margin: 5px 0;
-            letter-spacing: 1.5px;
-            position: relative;
-            z-index: 1;
-        }
-        .guest-text {
-            font-size: 14px;
-            margin: 10px 0;
-            position: relative;
-            z-index: 1;
-        }
-        .guest-name {
-            font-weight: bold;
-            color: #c15b5b;
-            font-size: 16px;
-        }
-        .date-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 15px 0;
-            position: relative;
-            z-index: 1;
-        }
-        .date-box {
-            border: 1px solid #c15b5b;
-            padding: 5px 10px;
-            margin-left: 10px;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            background-color: rgba(255, 255, 255, 0.5);
-        }
-        .date-number {
-            font-size: 40px;
-            color: #c15b5b;
-            font-weight: bold;
-            line-height: 1;
-        }
-        .time-text {
-            text-transform: uppercase;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .month-text {
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        .location {
-            font-style: italic;
-            margin: 5px 0;
-            font-size: 14px;
-            position: relative;
-            z-index: 1;
-        }
-        .footer-text {
-            font-style: italic;
-            margin-top: 20px;
-            font-size: 14px;
-            position: relative;
-            z-index: 1;
-        }
-        .thank-you {
-            font-size: 16px;
-            margin: 20px 0;
-            max-width: 280px;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
-        .date-simple {
-            margin: 20px 0;
-            font-size: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .content-box {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 15px 25px;
-            border-radius: 5px;
-            margin: 10px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        #invitationCards {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tư vấn Nhật Bản trọn gói | Du học, Thăm thân, Du lịch</title>
+  <meta name="description" content="Đơn vị tư vấn dịch vụ Nhật Bản chuyên du học, thăm thân và du lịch trọn gói. Hỗ trợ 24/7, tối ưu hồ sơ và nâng cao tỷ lệ đậu visa.">
+  <meta property="og:title" content="Chắp cánh ước mơ Nhật Bản - Du học, Thăm thân, Du lịch trọn gói">
+  <meta property="og:description" content="Tư vấn tận tâm 24/7 cho hồ sơ du học, visa thăm thân và du lịch Nhật Bản trọn gói.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:locale" content="vi_VN">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #bc002d;
+      --primary-dark: #8f0022;
+      --gold: #d4af37;
+      --ink: #16181d;
+      --charcoal: #252933;
+      --muted: #5c6473;
+      --surface: #ffffff;
+      --surface-soft: #f5f1ec;
+      --border: rgba(22, 24, 29, 0.08);
+      --shadow: 0 24px 60px rgba(17, 24, 39, 0.16);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --container: 1180px;
+      --section-gap: clamp(4.5rem, 8vw, 7rem);
+      --transition: 220ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(212, 175, 55, 0.18), transparent 28%),
+        linear-gradient(180deg, #fffdfa 0%, #f5f1ec 52%, #ffffff 100%);
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--container));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: var(--section-gap) 0;
+      position: relative;
+    }
+
+    .section-heading {
+      max-width: 680px;
+      margin: 0 auto 2.75rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(188, 0, 45, 0.08);
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5.4vw, 4.8rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 4vw, 3.1rem);
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      line-height: 1.3;
+    }
+
+    .lead {
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 760px;
+      margin-bottom: 2rem;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(8, 10, 15, 0.82), rgba(23, 25, 33, 0.48)),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.56)),
+        url("https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 150px;
+      background: linear-gradient(180deg, transparent, rgba(255, 253, 250, 0.92));
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 0;
+    }
+
+    .hero-panel {
+      max-width: 760px;
+      padding: clamp(1.6rem, 3vw, 2rem);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-lg);
+      background: rgba(10, 12, 18, 0.22);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.75rem;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 0.95rem 1.45rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #d11c49);
+      color: #fff;
+      box-shadow: 0 16px 32px rgba(188, 0, 45, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      box-shadow: 0 20px 38px rgba(188, 0, 45, 0.36);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.4rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: var(--radius-md);
+      padding: 1.6rem;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+      opacity: 0.88;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(188, 0, 45, 0.18);
+      box-shadow: 0 30px 50px rgba(17, 24, 39, 0.18);
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .icon-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: inline-grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(188, 0, 45, 0.12), rgba(212, 175, 55, 0.16));
+      color: var(--primary);
+    }
+
+    .icon-wrap svg,
+    .feature-icon svg,
+    .step-icon svg,
+    .floating-link svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .service-card p,
+    .feature-card p,
+    .step-card p,
+    .testimonial-card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: auto;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .why-wrap {
+      display: grid;
+      gap: 1.4rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 1.8rem 1.4rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78));
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 42px rgba(17, 24, 39, 0.09);
+    }
+
+    .feature-icon,
+    .step-icon {
+      width: 62px;
+      height: 62px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 18px;
+      color: var(--primary);
+      background: rgba(188, 0, 45, 0.08);
+      margin-bottom: 1rem;
+    }
+
+    .process {
+      position: relative;
+    }
+
+    .process::before {
+      content: "";
+      position: absolute;
+      top: 4.4rem;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(188, 0, 45, 0.18), rgba(212, 175, 55, 0.45), rgba(188, 0, 45, 0.18));
+      z-index: 0;
+    }
+
+    .step-card {
+      position: relative;
+      z-index: 1;
+      padding: 1.6rem;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 42px rgba(17, 24, 39, 0.08);
+    }
+
+    .step-number {
+      font-size: 3rem;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: rgba(188, 0, 45, 0.16);
+      margin-bottom: 0.45rem;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    .testimonial-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.84));
+      border-radius: var(--radius-md);
+      padding: 1.6rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 38px rgba(17, 24, 39, 0.08);
+    }
+
+    .quote-mark {
+      font-size: 3rem;
+      line-height: 1;
+      color: rgba(188, 0, 45, 0.2);
+      font-weight: 800;
+      margin-bottom: -0.5rem;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: auto;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(212, 175, 55, 0.26);
+    }
+
+    .author strong {
+      display: block;
+      line-height: 1.2;
+    }
+
+    .author span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .form-section {
+      padding-top: 0;
+    }
+
+    .form-shell {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.8rem, 4vw, 3rem);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top right, rgba(212, 175, 55, 0.18), transparent 28%),
+        linear-gradient(135deg, #1d2028 0%, #262a35 55%, #11141b 100%);
+      color: #fff;
+      box-shadow: 0 36px 70px rgba(17, 24, 39, 0.28);
+    }
+
+    .form-shell::before,
+    .form-shell::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(188, 0, 45, 0.14);
+      filter: blur(8px);
+    }
+
+    .form-shell::before {
+      width: 240px;
+      height: 240px;
+      top: -120px;
+      right: -40px;
+    }
+
+    .form-shell::after {
+      width: 180px;
+      height: 180px;
+      left: -60px;
+      bottom: -80px;
+    }
+
+    .form-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .form-copy p {
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 440px;
+    }
+
+    .form-benefits {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1.5rem;
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .benefit-item span:first-child {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 1.3rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .field {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .field label {
+      font-weight: 700;
+      font-size: 0.96rem;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--ink);
+      padding: 0.9rem 1rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(212, 175, 55, 0.88);
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.16);
+    }
+
+    .submit-btn {
+      min-height: 56px;
+      margin-top: 0.4rem;
+    }
+
+    .submit-btn[disabled] {
+      opacity: 0.75;
+      cursor: wait;
+      transform: none;
+    }
+
+    .status {
+      min-height: 1.4rem;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .status.error {
+      color: #ffd3dc;
+    }
+
+    .status.success {
+      color: #e1ffd4;
+    }
+
+    .floating-contact {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 20;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .floating-link {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      color: #fff;
+      box-shadow: 0 16px 30px rgba(17, 24, 39, 0.24);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .floating-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px rgba(17, 24, 39, 0.28);
+    }
+
+    .phone-link {
+      background: linear-gradient(135deg, var(--primary), #db204f);
+    }
+
+    .zalo-link {
+      background: linear-gradient(135deg, #0068ff, #33a8ff);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 1.5rem 0 2rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 1023px) {
+      .grid-3,
+      .why-wrap,
+      .testimonial-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .process::before {
+        display: none;
+      }
+
+      .hero-panel {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .section {
+        padding: 4.5rem 0;
+      }
+
+      .hero-grid {
+        padding: 4rem 0 5rem;
+      }
+
+      .cta-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .form-shell {
+        border-radius: 26px;
+      }
+
+      .floating-contact {
+        right: 0.85rem;
+        bottom: 0.85rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Form để nhập tên khách mời -->
-    <div class="input-container">
-        <h2>Tạo Thiệp Mời Cưới</h2>
-        <div class="input-group">
-            <label for="guestName">Tên Khách Mời:</label>
-            <input type="text" id="guestName" placeholder="Nhập tên khách mời" value="Nguyễn Văn A">
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-panel fade-up">
+        <div class="eyebrow">Japan Visa & Education Consulting</div>
+        <div class="hero-highlights">
+          <div class="hero-chip">Tư vấn chuyên sâu 1:1</div>
+          <div class="hero-chip">Hồ sơ chuẩn hóa nhanh</div>
+          <div class="hero-chip">Theo sát đến khi nhận visa</div>
         </div>
-        <div class="input-group">
-            <label for="guestFamily">Gia Đình/Người Thân Đi Cùng:</label>
-            <input type="text" id="guestFamily" placeholder="Ví dụ: và gia đình" value="và gia đình">
+        <h1>Chắp cánh ước mơ Nhật Bản - Du học, Thăm thân, Du lịch trọn gói</h1>
+        <p class="lead">Hỗ trợ tận tâm 24/7 - Tỷ lệ đậu visa lên đến 98%</p>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#register-form" data-scroll-target="register-form">Đăng ký tư vấn miễn phí</a>
+          <a class="btn btn-secondary" href="#services" data-scroll-target="services">Xem dịch vụ nổi bật</a>
         </div>
-        <button class="btn" onclick="generateInvitation()">Tạo Thiệp Mời</button>
+      </div>
     </div>
-    
-    <!-- Container chứa hai thiệp cưới -->
-    <div id="invitationCards" class="container">
-        <!-- Left Card - Just Married -->
-        <div class="card left-card">
-            <div class="card-overlay"></div>
-            <div class="card-content">
-                <h1 class="title">Just Married!</h1>
-                
-                <div class="photo-frame left-photo-frame">
-                    <img class="photo" src="anhcuoi1.jpg" alt="Wedding couple photo">
-                </div>
-                
-                <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500" style="opacity: 0.7;">
-                    <g transform="translate(100, 280)">
-                        <!-- Green leaves decoration -->
-                        <path d="M0,0 C30,-30 60,-20 80,0" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                        <path d="M0,0 C20,-40 50,-50 70,-30" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                        <path d="M0,0 C40,-20 70,-10 80,20" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                        <ellipse cx="85" cy="0" rx="15" ry="7" fill="#a3c1ad" transform="rotate(-20)" opacity="0.7"/>
-                        <ellipse cx="70" cy="-32" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-45)" opacity="0.7"/>
-                        <ellipse cx="82" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(10)" opacity="0.7"/>
-                    </g>
-                    <g transform="translate(80, 300)">
-                        <!-- More green leaves -->
-                        <path d="M0,0 C-20,-35 -50,-40 -70,-20" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                        <path d="M0,0 C-30,-20 -60,-10 -75,15" stroke="#7d9d85" fill="none" stroke-width="2"/>
-                        <ellipse cx="-75" cy="-22" rx="13" ry="7" fill="#a3c1ad" transform="rotate(45)" opacity="0.7"/>
-                        <ellipse cx="-78" cy="20" rx="14" ry="8" fill="#a3c1ad" transform="rotate(-10)" opacity="0.7"/>
-                    </g>
-                </svg>
-                
-                <div class="content-box">
-                    <p class="thank-you">Thank you for helping us make our Big Day so special.</p>
-                    
-                    <p class="date-simple">30 . 06 . 2024</p>
-                </div>
-            </div>
+  </header>
+
+  <main>
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading fade-up">
+          <div class="eyebrow">Dịch vụ trọng tâm</div>
+          <h2>Dịch vụ của chúng tôi</h2>
+          <p class="section-copy">Ba mảng dịch vụ được thiết kế để xử lý trọn gói từ tư vấn, chuẩn bị hồ sơ đến đồng hành sau khi có visa.</p>
         </div>
-        
-        <!-- Right Card - Save the Date -->
-        <div class="card right-card">
-            <div class="card-overlay"></div>
-            <div class="card-content">
-                <div class="photo-frame right-photo-frame">
-                    <img class="photo" src="2.jpg" alt="Wedding couple beach photo">
-                </div>
-                
-                <svg class="plant-decoration" width="500" height="500" viewBox="0 0 500 500" style="opacity: 0.7;">
-                    <g transform="translate(380, 140)">
-                        <!-- Flower outline and leaves decoration -->
-                        <path d="M0,0 C-10,-20 -30,-30 -50,-25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                        <path d="M-50,-25 C-60,-20 -65,-5 -60,5" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                        <path d="M-50,-25 C-40,-30 -30,-20 -25,-10" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                        <ellipse cx="-65" cy="0" rx="10" ry="5" fill="#a3c1ad" transform="rotate(30)" opacity="0.7"/>
-                        
-                        <!-- Flower petals outline -->
-                        <path d="M-40,-15 C-45,-25 -35,-40 -25,-35" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
-                        <path d="M-40,-15 C-50,-20 -45,-35 -35,-40" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
-                        <path d="M-40,-15 C-35,-25 -20,-25 -20,-15" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
-                        <path d="M-40,-15 C-30,-10 -20,-20 -25,-30" stroke="#333" fill="none" stroke-width="1" opacity="0.5"/>
-                    </g>
-                    <g transform="translate(100, 400)">
-                        <!-- Bottom left eucalyptus -->
-                        <path d="M0,0 C20,15 40,20 60,15" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                        <path d="M0,0 C15,20 35,30 55,25" stroke="#7d9d85" fill="none" stroke-width="1.5"/>
-                        <ellipse cx="60" cy="15" rx="12" ry="6" fill="#a3c1ad" transform="rotate(-20)" opacity="0.7"/>
-                        <ellipse cx="55" cy="25" rx="13" ry="7" fill="#a3c1ad" transform="rotate(-40)" opacity="0.7"/>
-                    </g>
-                </svg>
-                
-                <div class="content-box">
-                    <p class="save-the-date">Save the date</p>
-                    
-                    <h2 class="couple-names">Phong Lam & Kim Chi</h2>
-                    
-                    <p class="invite-text">TRÂN TRỌNG KÍNH MỜI</p>
-                    
-                    <p class="guest-text"><span id="guestNameDisplay" class="guest-name">Nguyễn Văn A</span> <span id="guestFamilyDisplay">và gia đình</span></p>
-                    
-                    <p class="guest-text">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
-                </div>
-                
-                <div class="date-container">
-                    <div>
-                        <p class="time-text">10 GIỜ 30</p>
-                        <p class="time-text">CHỦ NHẬT</p>
-                    </div>
-                    <div class="date-box">
-                        <div class="date-number">30</div>
-                    </div>
-                    <div>
-                        <p class="month-text">01-06-2025</p>
-                        <p class="month-text">(Nhằm ngày 06 tháng 05 năm Ất Tỵ)</p>
-                    </div>
-                </div>
-                
-                <div class="content-box">
-                    <p class="location">Tại: Tư gia nhà Trai</p>
-                    <p class="location">Khu2, Phượng Lâu, Việt Trì, Phú thọ</p>
-                    
-                    <p class="footer-text">Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi!</p>
-                </div>
+
+        <div class="grid-3">
+          <article class="card service-card fade-up">
+            <div class="icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-4 9 4-9 4-9-4Z"></path>
+                <path d="M7 11v4c0 1.8 2.2 3 5 3s5-1.2 5-3v-4"></path>
+                <path d="M21 10v5"></path>
+              </svg>
             </div>
+            <h3>Du học</h3>
+            <p>Tư vấn chọn trường, luyện phỏng vấn, hoàn thiện hồ sơ du học Nhật Bản từ A-Z.</p>
+            <a class="text-link" href="#register-form" data-service="Du học" data-scroll-target="register-form">Tìm hiểu thêm</a>
+          </article>
+
+          <article class="card service-card fade-up">
+            <div class="icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9.5" cy="7" r="3"></circle>
+                <path d="M20 8v6"></path>
+                <path d="M17 11h6"></path>
+              </svg>
+            </div>
+            <h3>Thăm thân</h3>
+            <p>Dịch vụ làm visa thăm thân nhanh chóng, hỗ trợ chứng minh tài chính, tỉ lệ đậu cao.</p>
+            <a class="text-link" href="#register-form" data-service="Thăm thân" data-scroll-target="register-form">Tìm hiểu thêm</a>
+          </article>
+
+          <article class="card service-card fade-up">
+            <div class="icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 7h16"></path>
+                <path d="M7 7V5.5A1.5 1.5 0 0 1 8.5 4h7A1.5 1.5 0 0 1 17 5.5V7"></path>
+                <rect x="4" y="7" width="16" height="13" rx="2"></rect>
+                <path d="M12 11v5"></path>
+                <path d="M9.5 13.5h5"></path>
+              </svg>
+            </div>
+            <h3>Du lịch</h3>
+            <p>Khám phá Nhật Bản tự túc hoặc theo tour, hỗ trợ xin visa du lịch lên đến 5 năm.</p>
+            <a class="text-link" href="#register-form" data-service="Du lịch" data-scroll-target="register-form">Tìm hiểu thêm</a>
+          </article>
         </div>
-    </div>
-    
-    <script>
-        function generateInvitation() {
-            // Lấy giá trị từ ô input
-            const guestName = document.getElementById('guestName').value || 'Quý khách';
-            const guestFamily = document.getElementById('guestFamily').value || '';
-            
-            // Cập nhật nội dung trên thiệp
-            document.getElementById('guestNameDisplay').textContent = guestName;
-            document.getElementById('guestFamilyDisplay').textContent = guestFamily;
-            
-            // Hiển thị thiệp
-            document.getElementById('invitationCards').style.display = 'flex';
-            
-            // Cuộn xuống để xem thiệp
-            document.getElementById('invitationCards').scrollIntoView({ behavior: 'smooth' });
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading fade-up">
+          <div class="eyebrow">Lý do tin chọn</div>
+          <h2>Tại sao chọn chúng tôi?</h2>
+          <p class="section-copy">Mọi quy trình được tối ưu để khách hàng có trải nghiệm rõ ràng, nhanh và yên tâm từ lần tư vấn đầu tiên.</p>
+        </div>
+
+        <div class="why-wrap">
+          <article class="feature-card fade-up">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 8v4l2.5 2.5"></path>
+                <circle cx="12" cy="12" r="8"></circle>
+              </svg>
+            </div>
+            <h3>Kinh nghiệm 10+ năm xử lý visa Nhật Bản</h3>
+            <p>Quy trình thực tế, nắm rõ điểm cần chuẩn hóa cho từng hồ sơ du học, thăm thân và du lịch.</p>
+          </article>
+
+          <article class="feature-card fade-up">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 3V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"></path>
+                <path d="M8 9h8"></path>
+                <path d="M8 13h5"></path>
+              </svg>
+            </div>
+            <h3>Hỗ trợ 24/7 qua hotline và chat</h3>
+            <p>Theo dõi hồ sơ liên tục, phản hồi nhanh các tình huống gấp và hướng dẫn chi tiết từng bước.</p>
+          </article>
+
+          <article class="feature-card fade-up">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="m8 12 2.5 2.5L16 9"></path>
+                <path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4Z"></path>
+              </svg>
+            </div>
+            <h3>Tỷ lệ đậu visa cao nhất thị trường</h3>
+            <p>Rà soát hồ sơ kỹ trước khi nộp, giảm sai sót và tăng xác suất đậu ngay từ lần đầu tiên.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading fade-up">
+          <div class="eyebrow">Quy trình làm việc</div>
+          <h2>Quy trình đơn giản - 4 bước đến Nhật Bản</h2>
+          <p class="section-copy">Tối giản thao tác cho khách hàng, tập trung vào những bước thực sự ảnh hưởng đến chất lượng hồ sơ và thời gian ra visa.</p>
+        </div>
+
+        <div class="grid-4 process">
+          <article class="step-card fade-up">
+            <div class="step-number">01</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 16.9V21l-4.1-2.1A10 10 0 1 1 22 16.9Z"></path>
+              </svg>
+            </div>
+            <h3>Tư vấn miễn phí</h3>
+            <p>Tiếp nhận nhu cầu, đánh giá hồ sơ hiện tại và gợi ý lộ trình phù hợp với mục tiêu của bạn.</p>
+          </article>
+
+          <article class="step-card fade-up">
+            <div class="step-number">02</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"></path>
+                <path d="M14 3v5h5"></path>
+                <path d="M9 13h6"></path>
+                <path d="M9 17h6"></path>
+              </svg>
+            </div>
+            <h3>Hoàn thiện hồ sơ</h3>
+            <p>Chuẩn hóa giấy tờ, điền biểu mẫu, kiểm tra logic hồ sơ và hỗ trợ luyện phỏng vấn khi cần.</p>
+          </article>
+
+          <article class="step-card fade-up">
+            <div class="step-number">03</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 7V3"></path>
+                <path d="M16 7V3"></path>
+                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                <path d="M3 10h18"></path>
+                <path d="m9 15 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3>Nộp hồ sơ xin visa</h3>
+            <p>Hướng dẫn nộp đúng quy trình, theo dõi tiến độ và chủ động xử lý các yêu cầu phát sinh.</p>
+          </article>
+
+          <article class="step-card fade-up">
+            <div class="step-number">04</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M2 16h20"></path>
+                <path d="m6 16 3-8 5 5 4-1 4 4"></path>
+                <path d="M14 8 9 3"></path>
+              </svg>
+            </div>
+            <h3>Nhận visa và bay</h3>
+            <p>Hoàn tất bước cuối, chuẩn bị lịch trình xuất cảnh hoặc chuyến đi với checklist rõ ràng.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading fade-up">
+          <div class="eyebrow">Social Proof</div>
+          <h2>Cảm nhận khách hàng</h2>
+          <p class="section-copy">Phản hồi thực tế từ khách hàng đã sử dụng dịch vụ, tập trung vào tốc độ xử lý và độ chắc tay của hồ sơ.</p>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial-card fade-up">
+            <div class="quote-mark">“</div>
+            <p>Nhờ dịch vụ du học bên này mà mình đậu visa kỳ tháng 4 dễ dàng. Hồ sơ hỗ trợ rất kỹ!</p>
+            <div class="author">
+              <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Nguyễn Văn A">
+              <div>
+                <strong>Nguyễn Văn A</strong>
+                <span>Du học sinh tại Tokyo</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card fade-up">
+            <div class="quote-mark">“</div>
+            <p>Làm visa thăm thân cho ba mẹ sang thăm mình rất nhanh, chỉ 5 ngày đã có. Cám ơn team!</p>
+            <div class="author">
+              <img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Trần Thị B">
+              <div>
+                <strong>Trần Thị B</strong>
+                <span>Osaka · Dịch vụ thăm thân</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card fade-up">
+            <div class="quote-mark">“</div>
+            <p>Đặt tour du lịch Nhật 7 ngày, được tư vấn lịch trình chi tiết, visa du lịch 5 năm ok ngay lần đầu.</p>
+            <div class="author">
+              <img class="avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" alt="Lê Văn C">
+              <div>
+                <strong>Lê Văn C</strong>
+                <span>Du khách · Tour 7 ngày</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section form-section" id="register">
+      <div class="container">
+        <div class="form-shell fade-up">
+          <div class="form-grid">
+            <div class="form-copy">
+              <div class="eyebrow">Đăng ký ngay</div>
+              <h2>Đăng ký tư vấn ngay</h2>
+              <p>Để lại thông tin, chúng tôi sẽ gọi lại trong 5 phút để tư vấn đúng nhu cầu và hướng xử lý hồ sơ phù hợp nhất.</p>
+
+              <div class="form-benefits">
+                <div class="benefit-item">
+                  <span>01</span>
+                  <span>Tư vấn lộ trình rõ ràng theo mục tiêu du học, thăm thân hoặc du lịch.</span>
+                </div>
+                <div class="benefit-item">
+                  <span>02</span>
+                  <span>Kiểm tra nhanh hồ sơ và chỉ ra điểm cần bổ sung để tăng khả năng đậu visa.</span>
+                </div>
+                <div class="benefit-item">
+                  <span>03</span>
+                  <span>Hỗ trợ phản hồi qua hotline, điện thoại và kênh chat khi cần xử lý gấp.</span>
+                </div>
+              </div>
+            </div>
+
+            <form id="register-form" novalidate>
+              <div class="field">
+                <label for="name">Họ và tên</label>
+                <input id="name" name="name" type="text" placeholder="Nhập họ và tên" required>
+              </div>
+
+              <div class="field">
+                <label for="phone">Số điện thoại</label>
+                <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="Nhập số điện thoại" required>
+              </div>
+
+              <div class="field">
+                <label for="need">Nhu cầu</label>
+                <select id="need" name="need" required>
+                  <option value="Du học">Du học</option>
+                  <option value="Thăm thân">Thăm thân</option>
+                  <option value="Du lịch">Du lịch</option>
+                </select>
+              </div>
+
+              <button class="btn btn-primary submit-btn" type="submit" id="submitBtn">Gửi đăng ký</button>
+              <div class="status" id="formStatus" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating-contact" aria-label="Liên hệ nhanh">
+    <a class="floating-link phone-link" href="tel:0900000000" aria-label="Gọi điện ngay">
+      <svg viewBox="0 0 24 24">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72l.45 3a2 2 0 0 1-.57 1.74L7.91 9.91a16 16 0 0 0 6.18 6.18l1.45-1.08a2 2 0 0 1 1.74-.57l3 .45A2 2 0 0 1 22 16.92Z"></path>
+      </svg>
+    </a>
+    <a class="floating-link zalo-link" href="https://zalo.me/0900000000" target="_blank" rel="noreferrer" aria-label="Chat Zalo">
+      Zalo
+    </a>
+  </div>
+
+  <footer>
+    <div class="container">© 2026 Japan Consulting. Đồng hành cùng bạn trên hành trình du học, thăm thân và du lịch Nhật Bản.</div>
+  </footer>
+
+  <script>
+    /*
+      CACH THIET LAP GOOGLE APPS SCRIPT DE NHAN DU LIEU FORM
+
+      1. Tao mot Google Sheet moi, dat ten cac cot hang dau:
+         Timestamp | Name | Phone | Need | Source
+
+      2. Vao Extensions > Apps Script va dan doan ma sau:
+
+         function doPost(e) {
+           var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
+           var data = JSON.parse(e.postData.contents || "{}");
+           sheet.appendRow([
+             new Date(),
+             data.name || "",
+             data.phone || "",
+             data.need || "",
+             data.source || "Landing Page"
+           ]);
+
+           return ContentService
+             .createTextOutput(JSON.stringify({ success: true }))
+             .setMimeType(ContentService.MimeType.JSON);
+         }
+
+      3. Chon Deploy > New deployment > Web app
+         Execute as: Me
+         Who has access: Anyone
+
+      4. Copy Web App URL va thay vao bien GOOGLE_SHEET_URL ben duoi.
+
+      Luu y:
+      - Apps Script phai duoc deploy lai neu ban thay doi code.
+      - Telegram Bot Token khong nen de lo trong frontend khi chay thuc te.
+        Ban co the chuyen logic nay sang Netlify Functions/Vercel Functions de an token.
+    */
+
+    const GOOGLE_SHEET_URL = "GOOGLE_SHEET_URL";
+    const TELEGRAM_BOT_TOKEN = "TELEGRAM_BOT_TOKEN";
+    const TELEGRAM_CHAT_ID = "TELEGRAM_CHAT_ID";
+
+    const form = document.getElementById("register-form");
+    const needSelect = document.getElementById("need");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("formStatus");
+    const scrollLinks = document.querySelectorAll("[data-scroll-target]");
+    const serviceLinks = document.querySelectorAll("[data-service]");
+    const revealItems = document.querySelectorAll(".fade-up");
+
+    function smoothScrollTo(targetId) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    scrollLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("data-scroll-target");
+        if (!targetId) return;
+        event.preventDefault();
+        smoothScrollTo(targetId);
+      });
+    });
+
+    serviceLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const selectedNeed = link.getAttribute("data-service");
+        if (selectedNeed) {
+          needSelect.value = selectedNeed;
         }
-        
-        // Tự động tạo thiệp khi trang tải xong
-        document.addEventListener('DOMContentLoaded', function() {
-            generateInvitation();
-        });
-    </script>
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    function setStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = "status";
+      if (type) {
+        statusBox.classList.add(type);
+      }
+    }
+
+    function validateForm(payload) {
+      if (!payload.name.trim()) {
+        return "Vui lòng nhập họ và tên.";
+      }
+
+      if (!payload.phone.trim()) {
+        return "Vui lòng nhập số điện thoại.";
+      }
+
+      return "";
+    }
+
+    async function sendToGoogleSheet(payload) {
+      if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "GOOGLE_SHEET_URL") {
+        throw new Error("Chưa cấu hình GOOGLE_SHEET_URL.");
+      }
+
+      const response = await fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Không gửi được dữ liệu lên Google Sheets.");
+      }
+
+      return response;
+    }
+
+    async function sendToTelegram(payload) {
+      if (
+        !TELEGRAM_BOT_TOKEN ||
+        TELEGRAM_BOT_TOKEN === "TELEGRAM_BOT_TOKEN" ||
+        !TELEGRAM_CHAT_ID ||
+        TELEGRAM_CHAT_ID === "TELEGRAM_CHAT_ID"
+      ) {
+        throw new Error("Chưa cấu hình Telegram bot.");
+      }
+
+      const telegramUrl = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
+      const message =
+        "📩 Đăng ký mới:\n" +
+        "Tên: " + payload.name + "\n" +
+        "SĐT: " + payload.phone + "\n" +
+        "Nhu cầu: " + payload.need;
+
+      const response = await fetch(telegramUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Không gửi được thông báo Telegram.");
+      }
+
+      return response;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const payload = {
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        need: form.need.value,
+        source: "Landing Page"
+      };
+
+      const errorMessage = validateForm(payload);
+      if (errorMessage) {
+        setStatus(errorMessage, "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Đang gửi...";
+      setStatus("Đang gửi thông tin, vui lòng chờ trong giây lát...");
+
+      try {
+        await sendToGoogleSheet(payload);
+        await sendToTelegram(payload);
+
+        setStatus("Đăng ký thành công. Chúng tôi sẽ liên hệ lại trong 5 phút.", "success");
+        form.reset();
+        needSelect.value = "Du học";
+      } catch (error) {
+        console.error(error);
+        setStatus(error.message || "Có lỗi xảy ra khi gửi đăng ký. Vui lòng thử lại.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Gửi đăng ký";
+      }
+    });
+  </script>
 </body>
 </html>
