@@ -199,6 +199,34 @@
       margin-top: 1.75rem;
     }
 
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .hero-stat {
+      padding: 1rem 1.1rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-stat span {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+    }
+
     .btn {
       border: 0;
       border-radius: 999px;
@@ -324,6 +352,227 @@
       display: grid;
       gap: 1.4rem;
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .japan-story {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1.6rem;
+      align-items: stretch;
+    }
+
+    .story-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      border-radius: 30px;
+      box-shadow: 0 28px 60px rgba(17, 24, 39, 0.14);
+    }
+
+    .story-visual {
+      min-height: 100%;
+      background:
+        linear-gradient(180deg, rgba(12, 15, 21, 0.12), rgba(12, 15, 21, 0.52)),
+        url("https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.6rem;
+      color: #fff;
+    }
+
+    .story-visual-copy {
+      max-width: 420px;
+      padding: 1.25rem;
+      border-radius: 22px;
+      background: rgba(10, 12, 18, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(10px);
+    }
+
+    .story-content {
+      display: grid;
+      gap: 1.4rem;
+    }
+
+    .story-card {
+      padding: 1.65rem;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 24px 48px rgba(17, 24, 39, 0.12);
+    }
+
+    .story-list {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .story-list-item {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      color: var(--charcoal);
+    }
+
+    .story-list-item span:first-child {
+      color: var(--primary);
+      font-weight: 800;
+      min-width: 1.6rem;
+    }
+
+    .story-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .story-stat {
+      padding: 1.2rem;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 241, 236, 0.92));
+      border: 1px solid rgba(188, 0, 45, 0.08);
+      box-shadow: 0 18px 36px rgba(17, 24, 39, 0.08);
+    }
+
+    .story-stat strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+      color: var(--primary);
+    }
+
+    .story-stat span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .destination-card {
+      position: relative;
+      min-height: 240px;
+      overflow: hidden;
+      border-radius: 24px;
+      box-shadow: 0 22px 44px rgba(17, 24, 39, 0.12);
+    }
+
+    .destination-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 500ms ease;
+    }
+
+    .destination-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .destination-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 12, 18, 0.05), rgba(10, 12, 18, 0.68));
+    }
+
+    .destination-copy {
+      position: absolute;
+      inset: auto 1rem 1rem 1rem;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .destination-copy p {
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .jobs-shell {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.6rem, 3vw, 2rem);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top right, rgba(212, 175, 55, 0.18), transparent 26%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 244, 239, 0.96));
+      border: 1px solid rgba(188, 0, 45, 0.08);
+      box-shadow: 0 30px 60px rgba(17, 24, 39, 0.12);
+    }
+
+    .jobs-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .jobs-legal {
+      max-width: 360px;
+      padding: 1rem 1.1rem;
+      border-radius: 22px;
+      background: rgba(188, 0, 45, 0.06);
+      color: var(--charcoal);
+      font-size: 0.95rem;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .job-card {
+      padding: 1.35rem;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid rgba(22, 24, 29, 0.08);
+      box-shadow: 0 18px 34px rgba(17, 24, 39, 0.08);
+    }
+
+    .job-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .salary-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(188, 0, 45, 0.1), rgba(212, 175, 55, 0.18));
+      color: var(--primary);
+      font-size: 0.94rem;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+    }
+
+    .job-meta {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .jobs-note {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1rem;
+      margin-top: 1.35rem;
+    }
+
+    .note-card {
+      padding: 1.15rem 1.2rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(22, 24, 29, 0.08);
+      color: var(--muted);
     }
 
     .feature-card {
@@ -622,6 +871,7 @@
 
     @media (max-width: 1023px) {
       .grid-3,
+      .japan-story,
       .why-wrap,
       .testimonial-grid,
       .form-grid {
@@ -630,6 +880,19 @@
 
       .grid-4 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .destination-grid,
+      .jobs-grid,
+      .story-stats,
+      .jobs-note,
+      .hero-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .jobs-header {
+        flex-direction: column;
+        align-items: stretch;
       }
 
       .process::before {
@@ -663,6 +926,14 @@
         grid-template-columns: 1fr;
       }
 
+      .destination-grid,
+      .jobs-grid,
+      .story-stats,
+      .jobs-note,
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
       .form-shell {
         border-radius: 26px;
       }
@@ -690,11 +961,108 @@
           <a class="btn btn-primary" href="#register-form" data-scroll-target="register-form">Đăng ký tư vấn miễn phí</a>
           <a class="btn btn-secondary" href="#services" data-scroll-target="services">Xem dịch vụ nổi bật</a>
         </div>
+        <div class="hero-metrics">
+          <div class="hero-stat">
+            <strong>10+</strong>
+            <span>Năm kinh nghiệm xử lý hồ sơ Nhật Bản</span>
+          </div>
+          <div class="hero-stat">
+            <strong>98%</strong>
+            <span>Tỷ lệ visa thành công ở nhóm hồ sơ chuẩn</span>
+          </div>
+          <div class="hero-stat">
+            <strong>24/7</strong>
+            <span>Hỗ trợ hotline, chat và theo dõi hồ sơ sát</span>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading fade-up">
+          <div class="eyebrow">Japan Overview</div>
+          <h2>Nhật Bản là điểm đến của cơ hội, trải nghiệm và chất lượng sống</h2>
+          <p class="section-copy">Từ nền giáo dục kỷ luật, môi trường sống an toàn đến hệ thống giao thông hiện đại và văn hóa đặc sắc, Nhật Bản luôn là lựa chọn hấp dẫn cho du học, thăm thân và du lịch dài ngày.</p>
+        </div>
+
+        <div class="japan-story">
+          <article class="story-panel fade-up">
+            <div class="story-visual">
+              <div class="story-visual-copy">
+                <h3>Tokyo, Kyoto, Osaka, Hokkaido</h3>
+                <p>Từ những đô thị sôi động đến vùng cảnh quan bốn mùa đặc trưng, Nhật Bản mang đến trải nghiệm rất khác nhau cho từng mục tiêu học tập, công việc và nghỉ dưỡng.</p>
+              </div>
+            </div>
+          </article>
+
+          <div class="story-content">
+            <article class="story-card fade-up">
+              <h3>Vì sao nhiều người Việt chọn Nhật Bản?</h3>
+              <p class="section-copy">Nhật Bản có hệ sinh thái phù hợp cho cả người trẻ muốn phát triển học tập lẫn gia đình cần một hành trình thăm thân, du lịch chỉn chu và an tâm.</p>
+              <div class="story-list">
+                <div class="story-list-item">
+                  <span>01</span>
+                  <span>Chất lượng giáo dục tốt, nhiều trường Nhật ngữ và cao đẳng liên kết lộ trình rõ ràng.</span>
+                </div>
+                <div class="story-list-item">
+                  <span>02</span>
+                  <span>Môi trường sống sạch sẽ, an toàn, giao thông công cộng thuận tiện và đúng giờ.</span>
+                </div>
+                <div class="story-list-item">
+                  <span>03</span>
+                  <span>Nhiều cơ hội làm thêm hợp pháp cho du học sinh và cơ hội nghề nghiệp sau tốt nghiệp.</span>
+                </div>
+              </div>
+            </article>
+
+            <div class="story-stats">
+              <div class="story-stat fade-up">
+                <strong>4 mùa</strong>
+                <span>Cảnh sắc thay đổi rõ rệt, phù hợp cả du học lẫn trải nghiệm du lịch.</span>
+              </div>
+              <div class="story-stat fade-up">
+                <strong>Đúng giờ</strong>
+                <span>Văn hóa làm việc và vận hành chuyên nghiệp, rất thuận lợi để thích nghi.</span>
+              </div>
+              <div class="story-stat fade-up">
+                <strong>Đa lựa chọn</strong>
+                <span>Từ thành phố lớn đến địa phương yên bình, nhiều mức chi phí để cân đối.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="destination-grid" style="margin-top: 1.35rem;">
+          <article class="destination-card fade-up">
+            <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=1200&q=80" alt="Tokyo về đêm">
+            <div class="destination-copy">
+              <h3>Tokyo</h3>
+              <p>Trung tâm học tập, việc làm và nhịp sống hiện đại bậc nhất Nhật Bản.</p>
+            </div>
+          </article>
+
+          <article class="destination-card fade-up">
+            <img src="https://images.unsplash.com/photo-1492571350019-22de08371fd3?auto=format&fit=crop&w=1200&q=80" alt="Kyoto với cổng Torii đỏ">
+            <div class="destination-copy">
+              <h3>Kyoto</h3>
+              <p>Nét đẹp truyền thống, đền chùa cổ kính và trải nghiệm văn hóa đậm chất Nhật.</p>
+            </div>
+          </article>
+
+          <article class="destination-card fade-up">
+            <img src="https://images.unsplash.com/photo-1526481280695-3c4691d5e3c9?auto=format&fit=crop&w=1200&q=80" alt="Osaka sôi động">
+            <div class="destination-copy">
+              <h3>Osaka</h3>
+              <p>Thành phố năng động, ẩm thực phong phú và rất được ưa chuộng với du học sinh.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="services">
       <div class="container">
         <div class="section-heading fade-up">
@@ -856,6 +1224,76 @@
             <h3>Nhận visa và bay</h3>
             <p>Hoàn tất bước cuối, chuẩn bị lịch trình xuất cảnh hoặc chuyến đi với checklist rõ ràng.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="jobs-shell fade-up">
+          <div class="jobs-header">
+            <div>
+              <div class="eyebrow">Việc làm phổ biến</div>
+              <h2>Những công việc phổ biến và mức lương tham khảo tại Nhật Bản</h2>
+              <p class="section-copy">Đây là mức tham khảo thường gặp cho các nhóm công việc phổ biến với du học sinh hoặc người mới sang Nhật, tùy khu vực, ca làm, trình độ tiếng Nhật và loại hình doanh nghiệp.</p>
+            </div>
+            <div class="jobs-legal">
+              Du học sinh tại Nhật thường chỉ được làm thêm trong giới hạn pháp lý áp dụng cho tư cách lưu trú của mình. Luôn kiểm tra điều kiện visa trước khi nhận việc.
+            </div>
+          </div>
+
+          <div class="jobs-grid">
+            <article class="job-card fade-up">
+              <h3>Nhà hàng · Phục vụ</h3>
+              <div class="salary-pill">Khoảng 1,000 - 1,300 yên/giờ</div>
+              <p>Công việc phổ biến cho người mới bắt đầu, giúp cải thiện giao tiếp và phản xạ tiếng Nhật nhanh.</p>
+              <div class="job-meta">
+                <span>Phù hợp: Du học sinh, người mới sang</span>
+                <span>Thế mạnh: Dễ tìm việc ở khu đông dân</span>
+              </div>
+            </article>
+
+            <article class="job-card fade-up">
+              <h3>Konbini · Cửa hàng tiện lợi</h3>
+              <div class="salary-pill">Khoảng 1,000 - 1,250 yên/giờ</div>
+              <p>Môi trường kỷ luật, yêu cầu chỉn chu, phù hợp để rèn tác phong và làm quen quy trình tiêu chuẩn Nhật.</p>
+              <div class="job-meta">
+                <span>Phù hợp: Du học sinh có tiếng Nhật cơ bản</span>
+                <span>Thế mạnh: Lịch làm linh hoạt theo ca</span>
+              </div>
+            </article>
+
+            <article class="job-card fade-up">
+              <h3>Kho hàng · Phân loại hàng</h3>
+              <div class="salary-pill">Khoảng 1,100 - 1,500 yên/giờ</div>
+              <p>Ít yêu cầu giao tiếp hơn, thích hợp với người muốn ưu tiên thu nhập và làm việc theo ca rõ ràng.</p>
+              <div class="job-meta">
+                <span>Phù hợp: Người mới, sức khỏe ổn định</span>
+                <span>Thế mạnh: Thu nhập tốt hơn ca đêm</span>
+              </div>
+            </article>
+
+            <article class="job-card fade-up">
+              <h3>Khách sạn · Dọn phòng/Lễ tân phụ trợ</h3>
+              <div class="salary-pill">Khoảng 1,100 - 1,600 yên/giờ</div>
+              <p>Phù hợp ở khu du lịch, tăng mạnh nếu giao tiếp tốt và có thể làm cuối tuần hoặc mùa cao điểm.</p>
+              <div class="job-meta">
+                <span>Phù hợp: Khu vực du lịch, resort, city hotel</span>
+                <span>Thế mạnh: Môi trường chuyên nghiệp, sạch</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="jobs-note">
+            <div class="note-card fade-up">
+              <strong style="display:block; color: var(--charcoal); margin-bottom: 0.45rem;">Ghi chú về mức lương</strong>
+              Mức lương thực tế phụ thuộc nhiều vào thành phố. Ví dụ, lương tối thiểu theo giờ tại Tokyo là 1,226 yên và Osaka là 1,177 yên, trong khi một số tỉnh địa phương thấp hơn đáng kể. Ca tối, ca đêm hoặc cuối tuần có thể được cộng thêm phụ cấp.
+            </div>
+            <div class="note-card fade-up">
+              <strong style="display:block; color: var(--charcoal); margin-bottom: 0.45rem;">Cách chúng tôi hỗ trợ</strong>
+              Khi tư vấn du học, đội ngũ sẽ giúp bạn chọn khu vực, trường và mức chi phí hợp lý hơn với khả năng tài chính và mục tiêu việc làm thêm, đồng thời lưu ý giới hạn làm thêm theo tư cách lưu trú.
+            </div>
+          </div>
         </div>
       </div>
     </section>
