@@ -1452,9 +1452,9 @@
         Ban co the chuyen logic nay sang Netlify Functions/Vercel Functions de an token.
     */
 
-    const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1Fyg2DvZ-hytUps0GQXrAzXdfCCtXE6uA65C16kB3zy8/edit?gid=0#gid=0";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjnRt2-0EaoWANjnJuu8DPviNLgRYDgDnLxE2BlI6T-RgMQYv4j5alVdpDHVIeyOCw3w/exec";
     const TELEGRAM_BOT_TOKEN = "6846592350:AAFt1AspGQlSdnLjW3S47TK4_UFUSZbvuYY";
-    const TELEGRAM_CHAT_ID = "@botnetsd_bot";
+    const TELEGRAM_CHAT_ID = "1220059074";
 
     const form = document.getElementById("register-form");
     const needSelect = document.getElementById("need");
@@ -1519,9 +1519,25 @@
       return "";
     }
 
+    function isGoogleSheetEditorUrl(url) {
+      return /^https:\/\/docs\.google\.com\/spreadsheets\/d\//i.test(url);
+    }
+
+    function isGoogleAppsScriptWebAppUrl(url) {
+      return /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/i.test(url);
+    }
+
     async function sendToGoogleSheet(payload) {
-      if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "https://docs.google.com/spreadsheets/d/1Fyg2DvZ-hytUps0GQXrAzXdfCCtXE6uA65C16kB3zy8/edit?gid=0#gid=0") {
+      if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "GOOGLE_SHEET_URL") {
         throw new Error("Chưa cấu hình GOOGLE_SHEET_URL.");
+      }
+
+      if (isGoogleSheetEditorUrl(GOOGLE_SHEET_URL)) {
+        throw new Error("GOOGLE_SHEET_URL đang là link Google Sheet thường. Hãy thay bằng Web App URL của Google Apps Script, dạng https://script.google.com/macros/s/.../exec");
+      }
+
+      if (!isGoogleAppsScriptWebAppUrl(GOOGLE_SHEET_URL)) {
+        throw new Error("GOOGLE_SHEET_URL chưa đúng định dạng Web App URL của Google Apps Script.");
       }
 
       const response = await fetch(GOOGLE_SHEET_URL, {
@@ -1542,9 +1558,9 @@
     async function sendToTelegram(payload) {
       if (
         !TELEGRAM_BOT_TOKEN ||
-        TELEGRAM_BOT_TOKEN === "6846592350:AAFt1AspGQlSdnLjW3S47TK4_UFUSZbvuYY" ||
+        TELEGRAM_BOT_TOKEN === "TELEGRAM_BOT_TOKEN" ||
         !TELEGRAM_CHAT_ID ||
-        TELEGRAM_CHAT_ID === "@botnetsd_bot"
+        TELEGRAM_CHAT_ID === "TELEGRAM_CHAT_ID"
       ) {
         throw new Error("Chưa cấu hình Telegram bot.");
       }
@@ -1568,7 +1584,16 @@
       });
 
       if (!response.ok) {
-        throw new Error("Không gửi được thông báo Telegram.");
+        let errorText = "Không gửi được thông báo Telegram.";
+        try {
+          const errorData = await response.json();
+          if (errorData && errorData.description) {
+            errorText = "Telegram lỗi: " + errorData.description;
+          }
+        } catch (parseError) {
+          console.error(parseError);
+        }
+        throw new Error(errorText);
       }
 
       return response;
