@@ -1426,13 +1426,19 @@
 
          function doPost(e) {
            var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
-           var data = JSON.parse(e.postData.contents || "{}");
+           var data = {
+             name: e.parameter.name || "",
+             phone: e.parameter.phone || "",
+             need: e.parameter.need || "",
+             source: e.parameter.source || "Landing Page"
+           };
+
            sheet.appendRow([
              new Date(),
-             data.name || "",
-             data.phone || "",
-             data.need || "",
-             data.source || "Landing Page"
+             data.name,
+             data.phone,
+             data.need,
+             data.source
            ]);
 
            return ContentService
@@ -1527,6 +1533,14 @@
       return /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/i.test(url);
     }
 
+    function toFormBody(payload) {
+      const params = new URLSearchParams();
+      Object.entries(payload).forEach(([key, value]) => {
+        params.append(key, value == null ? "" : String(value));
+      });
+      return params;
+    }
+
     async function sendToGoogleSheet(payload) {
       if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "GOOGLE_SHEET_URL") {
         throw new Error("Chưa cấu hình GOOGLE_SHEET_URL.");
@@ -1542,15 +1556,9 @@
 
       const response = await fetch(GOOGLE_SHEET_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+        mode: "no-cors",
+        body: toFormBody(payload)
       });
-
-      if (!response.ok) {
-        throw new Error("Không gửi được dữ liệu lên Google Sheets.");
-      }
 
       return response;
     }
@@ -1574,27 +1582,12 @@
 
       const response = await fetch(telegramUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+        mode: "no-cors",
+        body: toFormBody({
           chat_id: TELEGRAM_CHAT_ID,
           text: message
         })
       });
-
-      if (!response.ok) {
-        let errorText = "Không gửi được thông báo Telegram.";
-        try {
-          const errorData = await response.json();
-          if (errorData && errorData.description) {
-            errorText = "Telegram lỗi: " + errorData.description;
-          }
-        } catch (parseError) {
-          console.error(parseError);
-        }
-        throw new Error(errorText);
-      }
 
       return response;
     }
@@ -1628,7 +1621,12 @@
         needSelect.value = "Du học";
       } catch (error) {
         console.error(error);
-        setStatus(error.message || "Có lỗi xảy ra khi gửi đăng ký. Vui lòng thử lại.", "error");
+        const isNetworkError = error instanceof TypeError && String(error.message).toLowerCase().includes("fetch");
+        if (isNetworkError) {
+          setStatus("Trình duyệt không gửi được dữ liệu do chặn kết nối hoặc CORS. Kiểm tra lại quyền deploy Apps Script và thử mở trang bằng domain deploy thay vì file cục bộ.", "error");
+        } else {
+          setStatus(error.message || "Có lỗi xảy ra khi gửi đăng ký. Vui lòng thử lại.", "error");
+        }
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Gửi đăng ký";
