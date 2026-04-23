@@ -1452,7 +1452,7 @@
         Ban co the chuyen logic nay sang Netlify Functions/Vercel Functions de an token.
     */
 
-    const GOOGLE_SHEET_URL = "GOOGLE_SHEET_URL";
+    const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1Fyg2DvZ-hytUps0GQXrAzXdfCCtXE6uA65C16kB3zy8/edit?gid=0#gid=0";
     const TELEGRAM_BOT_TOKEN = "6846592350:AAFt1AspGQlSdnLjW3S47TK4_UFUSZbvuYY";
     const TELEGRAM_CHAT_ID = "@botnetsd_bot";
 
@@ -1520,7 +1520,7 @@
     }
 
     async function sendToGoogleSheet(payload) {
-      if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "GOOGLE_SHEET_URL") {
+      if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === "https://docs.google.com/spreadsheets/d/1Fyg2DvZ-hytUps0GQXrAzXdfCCtXE6uA65C16kB3zy8/edit?gid=0#gid=0") {
         throw new Error("Chưa cấu hình GOOGLE_SHEET_URL.");
       }
 
